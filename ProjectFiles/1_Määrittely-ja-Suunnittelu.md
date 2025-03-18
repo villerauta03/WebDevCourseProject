@@ -57,6 +57,15 @@ Käyttäjäpersoonat kuvaavat kuvitteellisen sovelluksen käyttäjän, ja miten 
     3. Jos jompikumpi lapsi vaikutti pitävän kirjasta enemmän, hän muokkaa kirjan tietoja ja lisää itsetekemän genren kirjan tietoihin. (Esim. "Lapsi 1 piti", "Lapsi 2 piti")
     4. Kirjan arvion perusteella hän päättää huomiselle, lukeeko lapsille saman kaltaisen kirjan vai koittaako erilaista kirjaa.
 
+### 4. Teemu Tavoitteellinen
+- **Kuvaus:** Teemu on 25-vuotias opiskelija ja itsensä kehittämisestä kiinnostunut lukija. Hän lukee pääasiassa itsensä kehittämiseen liittyviä kirjoja, kuten bisneskirjallisuutta, psykologiaa ja elämäntaito-oppaita. Hän asettaa itselleen tavoitteita luettujen kirjojen määrässä ja haluaa seurata edistymistään.
+- **Tavoitteet ja tarpeet:** Teemu haluaa pitää kirjaa lukemistaan kirjoista ja asettaa lukutavoitteita itselleen. Hän haluaisi seurata edistymisestään visuaalisesti, kuten kuinka monta kirjaa hän on lukenut. Hänelle olisi tärkeää, että sovelluksesta löytyisi selkeä tapa nähdä kuinka monta kirjaa hän on lukenut yhteensä.
+- **Esteet ja haasteet:** Teemu haluaisi lajitella kirjansa sen mukaan, milloin hän on lukenut sen, tai milloin hän haluaisi, että kirja on luettuna. Hän on kokeillut monia eri lukulistasovelluksia ja muistiinpanosovelluksia, mutta hän ei ole löytänyt mitä etsii.
+- **Tyypillinen käyttötapaus:**
+    1. Teemu lisää uuden kirjansa kirjahyllyynsä, sekä luo sille oman genren, jonka nimeksi hän asettaa kuukauden nimen, milloin haluaa että kirja on luettuna
+    2. Teemu lukee kirjan läpi, ja merkitsee sen luetuksi. Teemu muokkaa kirjan genreä tarvittaessa, jos hän sai kirjan luettuna kuukausi ennen tai jos kirjan lukeminen viivähtyi ensi kuulle.
+    3. Teemu löytää uuden kirjan ja toistaa käyttötapauden.
+
 ## 2. Käyttötapaukset ja käyttötilanteet
 
 ## 3. Käyttöliittymän prototyypit
