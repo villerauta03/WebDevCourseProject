@@ -67,7 +67,12 @@ Käyttäjäpersoonat kuvaavat kuvitteellisen sovelluksen käyttäjän, ja miten 
     3. Teemu löytää uuden kirjan ja toistaa käyttötapauden.
 
 ## 2. Käyttötapaukset ja käyttötilanteet
+Tässä osiossa käymme läpi eri ohjelmistoprojektin toiminnallisuuksien osuuksia, ja miten ohjelmistoa on mahdollista käyttää. 
+### 2.1. Käyttäjän rekisteröityminen ja kirjautuminen
+- Käyttäjä voi rekisteröidä uuden käyttäjätilin syöttämällä käyttäjänimen ja salasanan.
+- Käyttäjä voi kirjautua tililleen käyttäjänimen ja salasanan avulla.
 
+### 2.2  
 ## 3. Käyttöliittymän prototyypit
 
 ## 4. Tietoarkkitehtuuri ja tekninen suunnittelu
