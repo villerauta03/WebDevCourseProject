@@ -7,7 +7,7 @@ Kirjan lisäämiseen kirjahyllyyn kuuluu kirjan nimen, kuvauksen, kansikuvan, ju
 **Käyttäjien hallinta:**
   - Verkkosivuston käyttäjä rekisteröi verkkosivuille oman tilinsä, jonka avulla hän voi sitten kirjautua sisään ja käyttää sovellusta.
   - Käyttäjätilin voi poistaa käyttäjän omista asetuksista.
-  - Käyttäjän asetuksissa olla myös mahdollisuus käyttäjälle vaihtaa nimeä tai salasanaa.
+  - Käyttäjän asetuksissa olla myös mahdollisuus käyttäjälle vaihtaa salasanaa.
 
 **Kirjahyllyn hallinta:**
   - Käyttäjä voi lisätä kirjan virtuaaliseen kirjahyllyynsä, joka tallennetaan käyttäjän omalle käyttäjätilille.
@@ -33,7 +33,7 @@ Käyttäjäpersoonat kuvaavat kuvitteellisen sovelluksen käyttäjän, ja miten 
 
 ### 1.2 - Leevi Lajittelija
 - **Kuvaus:** Leevi on 35-vuotias kirjallisuuden harrastaja ja suomenkielen intoilija. Hän lukee paljon tietokirjoja ja klassikoita, ja hän tykkää lajitella kirjojaan niiden luokitusten mukaan.
-- **Tavoitteet ja tarpeet:** Leevi haluaa tallentaa lukemiaan kirjojaan johonkin helppokäyttöiseen palveluun, joka antaa hänelle mahdollisuuden lajitella ja hakea kirjojaan niiden luokitusten mukaan. Koska hän lukee monia tietokirjoja, hän haluaa helpon tavan hakea kirjoja nimellä. 
+- **Tavoitteet ja tarpeet:** Leevi haluaa tallentaa lukemiaan kirjojaan johonkin helppokäyttöiseen palveluun, joka antaa hänelle mahdollisuuden lajitella ja hakea kirjojaan. Koska hän lukee monia tietokirjoja, hän haluaa helpon tavan hakea kirjoja nimellä. 
 - **Haasteet ja esteet:** Leevi haluaisi löytää helpommin tietokirjoja ja vanhoja kirjoja. Hän on lukenut niin monta, että hänellä on hankaluuksia lajitella listaa kirjoista, joita hän on jo lukenut. Kaikki mainonnat toisilta sivustoilta kuitenkin antavat hänelle vain mainoksia kirjoista, joita hän on jo lukenut, tai jotka eivät sovi hänen kirjakokoelmaansa.
 - **Tyypillinen käyttötapaus:**
     1. Leevi hankkii uuden kirjan, ja alkaa täyttämään kirjan tietoja lomakkeeseen.
@@ -96,7 +96,7 @@ Kun kirja on lisätty kirjahyllyyn, se voidaan merkitä luetuksi valintapainikke
 Kun kirjan tiedot on täytetty lomakkeeseen ja lähetetty, se tallentuu sovellukseen käyttäjäkohtaiseen tietokantaan. Tätä tietokantaa haetaan täyttämään sovelluksen sisällä olevaa listaa käyttäjän lisäämillä kirjoilla.
   - Käyttäjä voi selata sovelluksen sisäisestä listasta (kirjahyllystä) hänen lisäämiään kirjojaan
   - Käyttäjä voi suodattaa kirjahyllyä kirjan nimen, kirjailijan nimen, julkaisupäivämäärän, hyllyynlisäämispäivämäärän, tai kirjan genren mukaan.
-  - Käyttäjä voi myös hakea kirjoja sen nimen, kirjailijan nimen, tai genren mukaan.  
+  - Käyttäjä voi myös hakea kirjoja sen nimen tai kirjailijan nimen mukaan.  
 
 **Tyypillinen käyttötapaus:**
   - Kun käyttäjä on lisännyt merkitsevän määrän kirjoja kirjahyllyynsä, hän lajittelee ne julkaisupäivämäärän mukaan löytääkseen kirjastokokoelmansa vanhimmat kirjat.
@@ -114,6 +114,38 @@ Kirjahyllyyn lisättyjen kirjojen tietoja on myös mahdollista poistaa, tai kirj
 
 
 ## 3. Käyttöliittymän prototyypit
+Sovelluksen käyttöliittymän prototyypeillä viitataan käyttöliittymän näyttämiseen tai kuvaamiseen sillä tavalla, että ohjelmointiprosessia aloittaessa projektia työstävä tiimi ymmärtää, minkälaista käyttöliittymää tullaan rakentamaan. Käyttöliittymän prototyypeillä myös näytetään vähän miltä projekti tulisi näyttämään eri laitteilla responsiivisuuden vuoksi.
+Tässä suunnitelmassa tulemme aluksi kuvaamaan tekstin avulla miten eri sivut tullaan laatimaan ja miten niiden väliset siirtymiset tulevat toimimaan. Tulemme myös tekemään prototyyppejä Figman avulla.
+
+
+### 3.1 - Kuvaukset käyttöliittymän näkymistä
+  - **Kirjautumisruutu:** Tämä on ensimmäinen ruutu joko avautuu sovelluksessa. Näytöllä ilmestyy sisäänkirjautumistekstiruudut, johon käyttäjä täyttää salasanan ja sähköpostiosoitteen. Näiden tekstiruutujen alla on nappi "Kirjaudu", jota painamalla käyttäjä pääsee kirjautumaan sisään, jos hän on asettanut oikeat tiedot tekstiruutuihin.  
+Sivulla on myös nappi, jossa lukee "Rekisteröidy". Tätä nappia painamalla avautuu lomake/sivu, johon käyttäjä täyttää sähköpostiosoitteen ja salasanan tililleen, ja painamalla "OK" näppäintä käyttäjä luo tilinsä, ja hänet siirretään takaisin tavalliselle kirjautumisruudulle.
+      - "Rekisteröidy"-nappi siirtää käyttäjän rekisteröintilomakkeeseen.
+      - Jos tiedot oikein, "Kirjaudu"-nappi siirtää käyttäjän sovelluksen päänäkymään.  
+
+    
+  - **Päänäkymä:** Tämä on sivu, jonka käyttäjä näkee kun hän on kirjautunut sisään. Siihen sisältyy kirjahylly (vie suurimman osan sivusta keskellä), hakupalkki (kirjahyllyn päällä), "Luo"-nappi kirjalle (hakupalkkia toisella puolella sivua, kirjahyllyn päällä), eri kirjojen ikonien painauksilla avautuvat kirjatietosivut (kirjan kansi, kirjahyllyn sisällä), lajitteluvalikko (hakupalkin vieressä), sekä käyttäjätilien oikeassa ylänurkassa istuva "Asetukset"-nappi.  
+Hakupalkilla kirjan etsiminen tulisi muokkaamaan kirjahyllynäkymää antamaan hyllylle vain ne kirjat, joiden nimet tai kirjailijoiden nimet vastaavat palkkiin annettua tekstiä.  
+Lajitteluvalikoiman avulla kirjahyllyn tulisi lajittelemaan kirjat valikoiman perusteella (eli järjestellä esimerkiksi A-Z aakkosjärjestyksellä jos lajitelmavalikointi on "kirjan nimi" tai "kirjailijan nimi") 
+      - "Luo"-nappi avaa käyttäjälle kirjan luonnin lomakeruudun, johon käyttäjä täyttää kirjan tiedot.
+      - Kirjan ikonia painamalla käyttäjälle avautuu kirjatietoruutu, jossa käyttäjä voi nähdä kirjan tarkemmat tiedot.
+      - "Asetukset"-nappia painamalla käyttäjälle avautuu käyttäjän asetukset ruutu, jossa käyttäjä voi muokata tietojaan tai poistaa tilinsä.  
+
+        
+  - **Kirjan luontilomake:** Sivulla on lomake, johon on käyttäjän tarkoitus täyttää kirjan tiedot. Sivulla on eri tekstipalkkeja, johon täytetään kirjan nimi, kirjan kuvaus, kirjailijoiden nimet, sekä kirjan julkaisupäivämäärä. Kirjan hyllyynlisäämispäivämäärä tultaisiin automaattisesti hakemaan koneesta. Kirjan täyttölomakkeen alapuolella oikealla sivulla on kaksi nappia: "Lähetä"-nappi, joka täyttää annetut tiedot tietokantaan, sekä "Peru"-nappi.
+      - "Peru"-nappia painamalla, käyttäjä siirretään takaisin päänäkymään ilman lisäämättä kirjaa kirjahyllyyn.
+      - "Lähetä"-nappia painamalla, kirja lisätään käyttäjän tietokantaa, ja käyttäjä siirretään päänäkymään.
+
+
+  - **Kirjatietoruutu:** Sivulla on tarkempaa tietoa kyseisestä kirjasta, kuin mitä kirjahyllynäkymästä saa selville. Sivulla on keskeinen näkymä, missä näkyy kirjan kansilehti, nimi, kuvaus, kirjailijoiden nimet, julkaisupäivämäärä, hyllyynlisäyspäivämäärä, ja kirjan genret. Eli kaikki ne tiedot, mitä käyttäjä lisäsi kirjan lisäyslomakkeessa. Tietojen yläpuolella on kolme nappia. Vasemmalla puolella on "Takaisin"-nappi, oikealla puolella kaksi nappia: "Muokkaa"-nappi, sekä "Poista"-nappi.
+      - "Takaisin"-nappi vie käyttäjän takaisin päänäkymään.
+      - "Muokkaa"-nappi antaa käyttäjän muokata kirjan tietoja.
+      - "Poista"-nappi avaa käyttäjälle varoitusikkunan samalle sivulle, jossa kaksi nappia. "OK"-nappi varoitusruudussa viimeistelee kirjan poiston, ja vie käyttäjän takaisin päänäkymään. "Peru"-nappi peruu kirjan poistamisen, ja sulkee varoitusruudun.
+
+
+  - **Asetukset:** Sivulla on kaksi tekstikenttää. Ylemmän vieressä lukee teskti "Sähköpostiosoite", ja sen vieressä lukee käyttäjän sähköpostiosoite, jota ei voi vaihtaa. Alemman tekstiruudun vieressä lukee teksti "Salasana", ja tekstikentän avulla voi halutessaan vaihtaa tilin salasanaa. Tekstikenttien alapuolella on nappi "OK", joka tallentaa salasanan muutoksen. Vasemassa ylänurkassa on "Takaisin"-nappi.
+      - "Takaisin"-nappi vie käyttäjän takaisin päänäkymään.
 
 ## 4. Tietoarkkitehtuuri ja tekninen suunnittelu
 
