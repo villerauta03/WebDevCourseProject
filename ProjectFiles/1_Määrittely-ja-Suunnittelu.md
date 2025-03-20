@@ -145,7 +145,14 @@ Lajitteluvalikoiman avulla kirjahyllyn tulisi lajittelemaan kirjat valikoiman pe
 
 
   - **Asetukset:** Sivulla on kaksi tekstikenttää. Ylemmän vieressä lukee teskti "Sähköpostiosoite", ja sen vieressä lukee käyttäjän sähköpostiosoite, jota ei voi vaihtaa. Alemman tekstiruudun vieressä lukee teksti "Salasana", ja tekstikentän avulla voi halutessaan vaihtaa tilin salasanaa. Tekstikenttien alapuolella on nappi "OK", joka tallentaa salasanan muutoksen. Vasemassa ylänurkassa on "Takaisin"-nappi.
-      - "Takaisin"-nappi vie käyttäjän takaisin päänäkymään.
+      - "Takaisin"-nappi vie käyttäjän takaisin päänäkymään.  
+
+
+### 3.2 - Figmalla tehty prototyyppi
+Kirjastohyllysivustosta on luotu myös käyttöliittymälle prototyyppisuunnitelma Figman avulla, jota tultaisiin suurimmaksi osaksi seuraamaan.   
+![image](https://github.com/user-attachments/assets/711ee3e9-e09a-41b4-a910-107fa1939e6e)
+
+Seuraavasta linkistä voi tutustua tarkemmin käyttöliittymän suunniteltuun rakenteeseen: https://www.figma.com/design/32lx0ejmWRIlQKR6YYF0jD/WebDevCourseProject?m=auto&t=dWSGHzPUHmQRHsXa-1 
 
 ## 4. Tietoarkkitehtuuri ja tekninen suunnittelu
 
