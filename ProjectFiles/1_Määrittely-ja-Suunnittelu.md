@@ -133,7 +133,7 @@ Lajitteluvalikoiman avulla kirjahyllyn tulisi lajittelemaan kirjat valikoiman pe
       - "Asetukset"-nappia painamalla käyttäjälle avautuu käyttäjän asetukset ruutu, jossa käyttäjä voi muokata tietojaan tai poistaa tilinsä.  
 
         
-  - **Kirjan luontilomake:** Sivulla on lomake, johon on käyttäjän tarkoitus täyttää kirjan tiedot. Sivulla on eri tekstipalkkeja, johon täytetään kirjan nimi, kirjan kuvaus, kirjailijoiden nimet, sekä kirjan julkaisupäivämäärä. Kirjan hyllyynlisäämispäivämäärä tultaisiin automaattisesti hakemaan koneesta. Kirjan täyttölomakkeen alapuolella oikealla sivulla on kaksi nappia: "Lähetä"-nappi, joka täyttää annetut tiedot tietokantaan, sekä "Peru"-nappi.
+  - **Kirjan luontilomake:** Sivulla on lomake, johon on käyttäjän tarkoitus täyttää kirjan tiedot. Sivulla on eri tekstipalkkeja, johon täytetään kirjan nimi, kirjan kuvaus, kirjailijoiden nimet, kirjan kansi, sekä kirjan julkaisupäivämäärä. Kirjan hyllyynlisäämispäivämäärä tultaisiin automaattisesti hakemaan koneesta. Kirjan täyttölomakkeen alapuolella oikealla sivulla on kaksi nappia: "Lähetä"-nappi, joka täyttää annetut tiedot tietokantaan, sekä "Peru"-nappi.
       - "Peru"-nappia painamalla, käyttäjä siirretään takaisin päänäkymään ilman lisäämättä kirjaa kirjahyllyyn.
       - "Lähetä"-nappia painamalla, kirja lisätään käyttäjän tietokantaa, ja käyttäjä siirretään päänäkymään.
 
