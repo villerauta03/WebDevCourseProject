@@ -155,5 +155,10 @@ Kirjastohyllysivustosta on luotu myös käyttöliittymälle prototyyppisuunnitel
 Seuraavasta linkistä voi tutustua tarkemmin käyttöliittymän suunniteltuun rakenteeseen: https://www.figma.com/design/32lx0ejmWRIlQKR6YYF0jD/WebDevCourseProject?m=auto&t=dWSGHzPUHmQRHsXa-1 
 
 ## 4. Tietoarkkitehtuuri ja tekninen suunnittelu
+Dokumentin tietoarkkitehtuurilla suunnitellaan ohjelmiston tekninen kokonaisuus selventämällä mitä teknologioita käytetään mihinkin tarkoitukseen sovelluksen kokoonpanossa. Selitetään mitä käytetään käyttöliittymän luontiin (frontend), mitä palvelinpuolen ja tietokannan luontiin (backend), millä ympäristöllä projekti tulee olemaan, minkälaista tietokantaa käytämme, sekä mitä käytämmme ohjelmiston testaukseen.  
+- **Frontend:** Ohjelmistoprojektin frontend suoritetaan Javascriptin ja React.js avulla. CSS tyylien apuun voimme käyttää Bootstrap jos tarve nousee. Suunnitelmana on kuitenkin kirjoittaa oma CSS.
+- **Backend:** Ohjelmistoprojektin backend suoritetaan Node.js ja Express.js avulla.
+- **Tietokanta:** Tietokannat suoritetaan käyttämällä PostgreSQL.
+- **Testaus:** Ohjelmistoprojektin testausta suoritetaan manuaalisen testauksen avulla sekä Jestin avulla.
 
 ## 5. Projektinhallinta ja käyttäjätestaus
