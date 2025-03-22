@@ -162,3 +162,31 @@ Dokumentin tietoarkkitehtuurilla suunnitellaan ohjelmiston tekninen kokonaisuus 
 - **Testaus:** Ohjelmistoprojektin testausta suoritetaan manuaalisen testauksen avulla sekä Jestin avulla.
 
 ## 5. Projektinhallinta ja käyttäjätestaus
+Dokumentaation viimeisessä osassa esitetään miten projektin määritystä hallitaan, miten se edistystä dokumentoidaan ja ylläpidetään, varmistetaan että tuote täyttää vaatimukset sekä kuvaillaan ne vaiheet, miten ohjelmisto testataan ja millä tavoin sen testausta määritellään.  
+
+### 5.1 - Projektinhallinta
+Web-kehittämisen ohjelmistoprojektin projektinhallintaan kuuluu mm. projektin aikataulun määrittäminen, virstapylväiden/vaiheistuksen kuvaaminen, resurssien hallinta, riskien hallinta, sekä projektin seurannan raportointi. 
+- **Projektin vaiheet ja aikarajat:** Projektin suoritukseen on määrätty aikaa 17.4.2025 asti, ja tuntimäärä n. 81 tuntia (vähintään 20). Projektiin kuuluu neljä eri vaihetta, jotka on suoritettava ennen jokaisen vaiheen omaa määräpäivää.
+- **Resurssien hallinta:** Ohjelmistprojektissa käytettäviin resursseihin kuuluu aiemmin listatut teknologiat (katso Tietoarkkitehtuurit ja tekninen suunnittelu). Fyysiseen laitteistoon kuuluu oma kotikone, projektin ohjelmointi tehdään päämääräisesti Visual Studio Code:ssa, ja projektityön kokonaisuudesta vastaa täysin minä itse.
+- **Projektin seuranta ja raportointi:** Projektin työnteon aikana kuvataan GitHubissa olevaan aikatauluun (https://github.com/villerauta03/WebDevCourseProject/blob/main/Logbook.md) joka kerta, kuin koodia kirjoitetaan tai ohjelmistoa muuten kehitetään. Siihen kirjataan tuntimäärä, lyhyt otsikko, sekä kuvaus jolla kerrotaan enemmän mihin tunnit käytettiin.
+
+### 5.2 - Riskien hallinta
+Riskienhallintapöytään kootaan kaikki ne riskit, jotka ovat olennaisia ohjelmistoprojektia kehittäessä, miten niihin voidaan vastata, niiden todennäköisyys, sekä niiden vakavuus.
+| Riski | Todennäköisyys | Vakavuus | Vastaus |
+|---|---|---|---|
+| Aikarajoitukset | Minimi | Keski | Työstetään pitempään ettei ohjelmistokehitysprojekti jää lyhyeksi/tekemättä viimeiseen päivämäärään asti. |
+| Integraatio-ongelmat | Minimi | Minimi | Korjataan integraatiokoodi samoin kuin ongelmat nousevat. |
+| Haku- ja lajittelutoiminta suurissa tietomäärissä hidastaa sovellusta | Keski | Vakava | Parannetaan tietokannan indeksointia ja optimoidaan hakutoiminnallisuuksen koodia jotta se ei olisi yhtä hidasta. Käytetään valinnaisesti jotain tiettyä teknologiaa tämän avustamiseen. |
+| Muuttuvat määritykset | Todennäköinen | Keski | Päivitetään dokumentaatiota määritysten muuttumisen mukaan, pidetään huomioissa alkuperäinen toiminnallisuus mahdollisimman pitkään. |
+| Suorituskykyongelmat | Minimi | Minimi | Koodin optimointi ja kuormitustestien suoritus sovelluksen eri vaiheissa. |
+| Henkilöstön sairastuminen | Minimi | Vakava | Koska olen ainut tekemässä ohjelmistoprojektia, kysyä opettajalta mahdollisesti lisäaikaa ohjelmistoprojektin suoritukseen. |
+| Tietokannan virheet | Keski | Vakava | Toteutetaan säännöllisiä varmuuskopioita ja lisätään validointeja. |
+| Testauksen puute | Minimi | Keski | Luodaan automaattisia testejä Jestin avulla aiemmin, järjestetään testausvaihe sovelluksen toiminnallisuuksien suorituksen yhteydessä. |
+
+
+### 5.3 - Käyttäjätestaus
+Projektin laajuuden yhteydessä käyttäjätestauksella viitataan prosessiin, jossa sovelluksen käyttäjä testaa läpi ohjelmiston toiminnallisuuksia ja toimivuutta käyttämällä sovellusta. Projektin dokumentaatiolla selvitetään mihin tarkoitukseen käyttäjätestausta tullaan soveltamaan, miten käyttäjätestaus suoritetaan, missä kohdissa sovelluskehitystä sitä sovelletaan, ja millä menetelmillä.
+- **Testauksen tavoitteet:** Käyttäjätestauksella tullaan kokeilemaan sovelluksen ylläpitoista toimintaa, varsinkin niissä kohdissa missä käyttäjän toiminta tulee vaikuttamaan sovelluksen toimintaan. Eli esim. sisäänkirjautumisessa, rekisteröinnissä, kirjojen lisäämisessä, muokkaamisessa, ja poistamisessa, sekä salasanan vaihdossa.
+- **Testauksen aikataulu:** Testausta tullaan soveltamaan niissä kohdissa milloin sovelluksen kehitys edistyy merkittävän määrän. Eli esim. kun suoritamme sovellukseen mahdollisuuden lisätä kirjan, testaamme tätä toiminnallisuutta heti.
+- **Testauksen seuranta:** Testausta pidetään muistissa ja dokumentoidaan erilliseen tiedostoon, josta voimme varmistaa sovelluksen toiminnan ja miten toiminnallisuutta ollaan testattu.
+- **Testausmenetelmät:** Käyttäjätestauksessa tullaan testaamaan suoraan toiminnallisuuden käytännöllisyys. Emme siis käytä välttämättä mitään erikoista menetelmää, vaan testaamme suoraan omien kriteerien mukaan, toimiiko ohjelmisto odotetulla tavalla.
