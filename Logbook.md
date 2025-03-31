@@ -8,6 +8,7 @@
 | 20.03.2025 | 5 | 1. Vaihe - Käyttötapaukset ja käyttötilanteet, Käyttöliittymän Prototyypit | Kuvattiin jokainen käyttötapaus ja luotiin niille esimerkilliset käyttötapaudet. Sen jälkeen kuvailtiin sivuston prototyypin rakennetta, ja tehtiin Figman avulla prototyyppirakenne, joka on linkattu dokumentoinnissa. | 
 | 21.03.2025 | 1.5 | 1. Vaihe - Tietoarkkitehtuuri ja tekninen suunnittelu | Kuvattiin ohjelmistoprojektin käyttöönottoon suunnitellut teknologiat, kielet ja kirjastot. | 
 | 22.03.2025 | 2 | 1. Vaihe - Dokumentoinnin viimeistely | Kuvailtiin sovellukseen liittyvä käyttäjätestaus, projektinhallinta ja riskien hallinta. Täytettiin dokumentaatio loppuun asti. Lähetettiin Itsiin palautus. | 
+| 31.03.2025 | 3 | UI-kehitys | Rakennettiin käyttöliittymää kirjautumis-sivulle sekä rekisteröinti-sivulle. Toiminnallisuuksia ei, pelkät sivut. | 
 
 
 
