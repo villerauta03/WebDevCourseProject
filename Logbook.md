@@ -9,6 +9,7 @@
 | 21.03.2025 | 1.5 | 1. Vaihe - Tietoarkkitehtuuri ja tekninen suunnittelu | Kuvattiin ohjelmistoprojektin käyttöönottoon suunnitellut teknologiat, kielet ja kirjastot. | 
 | 22.03.2025 | 2 | 1. Vaihe - Dokumentoinnin viimeistely | Kuvailtiin sovellukseen liittyvä käyttäjätestaus, projektinhallinta ja riskien hallinta. Täytettiin dokumentaatio loppuun asti. Lähetettiin Itsiin palautus. | 
 | 31.03.2025 | 3 | UI-kehitys | Rakennettiin käyttöliittymää kirjautumis-sivulle sekä rekisteröinti-sivulle. Toiminnallisuuksia ei, pelkät sivut. | 
+| 02.04.2025 | 2 | UI-kehitys ja virheet | Yritettiin lisätä TailwindCSS projektiin. Ei toiminut millään. | 
 
 
 
