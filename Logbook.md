@@ -11,6 +11,7 @@
 | 31.03.2025 | 3 | UI-kehitys | Rakennettiin käyttöliittymää kirjautumis-sivulle sekä rekisteröinti-sivulle. Toiminnallisuuksia ei, pelkät sivut. | 
 | 02.04.2025 | 2 | UI-kehitys ja virheet | Yritettiin lisätä TailwindCSS projektiin. Ei toiminut millään. | 
 | 03.04.2025 | 4 | Tappelua PostgreSQL ja projektin käyttöliittymän kanssa | Ei saatu mitään toimimaan, virheitä täysin, heitettiin takaisin edelliseen versioon ennen muokkauksia |
+| 05.04.2025 | 3 | Backend ja PostgreSQL | Luotiin PostgreSQL-tietokanta käyttäjätilitoiminnalle ja aloitettiin kasaamaan käyttäjän rekisteröinnin ja kirjautumisen toimintoja |
 
 
 
