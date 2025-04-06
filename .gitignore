@@ -1,0 +1,7 @@
+/bookshelf/frontend/.env
+/bookshelf/backend/.env
+*.log
+*.tmp
+/Documentation/
+README.md
+Logbook.md
