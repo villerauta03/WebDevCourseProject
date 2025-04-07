@@ -1,61 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Make sure axios is installed (`npm install axios`)
 import "./styles.css"; // Import the CSS file
 
 const RegisterPage = () => {
-    const navigate = useNavigate();
-
-    // State to store input values
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState(""); // State to store error message
-    const [isLoading, setIsLoading] = useState(false); // For handling loading state
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
-    // Handle input changes
+    // Redirect if user is already logged in
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            navigate("/home");
+        } else {
+            setIsLoading(false);
+        }
+    }, [navigate]);
+
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
     const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        // Validate password match
+
         if (password !== confirmPassword) {
-            setError("Salasanat eivät täsmää!"); // Error message if passwords don't match
+            setError("Salasanat eivät täsmää!");
             return;
         }
+        setError("");
+        setIsLoading(true);
 
-        setError(""); // Clear error if passwords match
-        setIsLoading(true); // Show loading state
-
-        // Prepare data to send to backend
         const userData = {
             email: email,
             password: password,
         };
 
         try {
-            // Send the POST request to the backend (replace with your actual backend URL)
             const response = await axios.post("http://localhost:5000/api/register", userData);
-            console.log(response.data); // Handle success response from backend
-
-            // On successful registration, navigate to login page
-            navigate("/");
+            console.log(response.data);
+            navigate("/login");
         } catch (error) {
-            setError("Rekisteröinti epäonnistui. Yritä uudelleen."); // Error if registration fails
+            setError("Rekisteröinti epäonnistui. Yritä uudelleen.");
             console.error(error);
+            if (error.response) {
+                setError(error.response.data.message);
+            } else if (error.request) {
+                setError("No response from server. Please check your connection.");
+            } else {
+                setError("An unexpected error occurred.");
+            }
         } finally {
-            setIsLoading(false); // Hide loading state
+            setIsLoading(false);
         }
     };
 
-    // Back to login page
     const handleBackClick = () => {
-        navigate("/");
+        navigate("/login");
     };
+    
+    if (isLoading) {
+        return null;
+    }
 
     return (
         <div className="container">
