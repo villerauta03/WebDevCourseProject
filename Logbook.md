@@ -13,6 +13,7 @@
 | 03.04.2025 | 4 | Tappelua PostgreSQL ja projektin käyttöliittymän kanssa | Ei saatu mitään toimimaan, virheitä täysin, heitettiin takaisin edelliseen versioon ennen muokkauksia |
 | 05.04.2025 | 3 | Backend ja PostgreSQL | Luotiin PostgreSQL-tietokanta käyttäjätilitoiminnalle ja aloitettiin kasaamaan käyttäjän rekisteröinnin ja kirjautumisen toimintoja |
 | 07.04.2025 | 5 | Käyttäjäkirjautumisen ja -rekisteröinnin toiminnallisuudet, sivujen navigoinnin setup | Loimme käyttäjätilille kirjautumisen ja rekisteröinnin toiminnallisuudet, lisäsimme sisäänkirjautumisen vahvistuksen suojatuille sivuille (esim. ellei ole kirjautunut, ei voi mennä `/settings`), index (`/`) ohjaa suoraan joko kirjautumiseen tai kotiruudulle riippuen onko käyttäjä kirjautunut sisään, lisäsimme React-komponentit ja Route-osiot tuleville sivuille jo valmiiksi. | 
+| 08.04.2025 | 4 | Kotisivun Frontend | Luotiin kotisivun navigaatiot kunnolla, alettiin rakentamaan frontendia, kehitettiin alkutilanteeseen, voidaan simuloida esimerkki kirjaItemi näkymään testaamaan kirjahyllyn näkyvyyttä. |
 
 
 
