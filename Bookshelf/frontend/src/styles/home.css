@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+body, html {
+    margin: 0; /* Remove default browser margins */
+    padding: 0;
+    font-family: "Istok Web", sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+.top-section {
+    display: flex;
+    flex-direction: row; /* <- change this! */
+    justify-content: space-between; /* space between left and right */
+    align-items: center; /* center vertically */
+    width: 91vw;
+    background-color: white;
+    padding: 20px;
+}
+
+.top-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: flex-start; /* Stick to top */
+}
+
+.bottom-row {
+    display: flex;
+    align-items: center; /* Center vertically */
+    gap: 1rem;
+}
+
+.separator {
+    margin: 0 10px; /* Add space on both sides of the line */
+    font-size: 20px; /* Adjust the size of the separator */
+    color: #333; /* Color of the separator */
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column; /* <- change this */
+    align-items: flex-end; /* align items to the right side */
+    gap: 0.5rem;
+}
+
+.create-button {
+    background-color: #FF8E3D;
+    width: 150px;
+    height: 65px;
+    font-size: 27px;
+    font-weight: 550;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.create-button:hover {
+    background-color: #fc8732;
+}
+
+.create-button:active {
+    background-color: #F77C24;
+}
+
+.settings-button {
+    background-color: transparent;
+    font-size: 15px;
+    color: black;
+    border: none;
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.settings-button:hover {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+
+.search-bar {
+    display: flex;
+    align-items: center; /* Align vertically center */
+    width: 500px;
+    height: 45px;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.sort-dropdown {
+    padding: 10px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.gray-box {
+    background-color: #EEEEEE; /* Light gray color */
+    width: 90vw; /* Full browser width */
+    height: 35vw; /* Fix a height instead of min-height */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* So items start at the top */
+    margin-top: 20px; /* Space between top-section and gray box */
+    padding: 20px; /* Padding inside the gray box */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* No horizontal scroll */
+    border-radius: 10px; /* Optional: slight rounding */
+}
+
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid system */
+    gap: 20px;
+    width: 100%; /* Fill parent */
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+.thumbnail {
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.item-text {
+    font-size: 14px;
+    color: #333;
+}

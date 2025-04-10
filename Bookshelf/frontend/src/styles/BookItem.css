@@ -1,0 +1,34 @@
+.book-item {
+    width: 150px; /* Width of the book item container */
+    height: 250px; /* Increased height to allow space for the text */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.book-icon {
+    width: 135px; /* Larger icon size */
+    height: 100%; /* Make the icon square */
+    object-fit: cover; /* Ensures the image maintains aspect ratio */
+    border-radius: 10px; /* Rounded corners for the image */
+    margin-bottom: 10px; /* Margin between image and text */
+}
+
+.book-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px; /* Space between title and authors */
+}
+
+.authors {
+    font-size: 14px;
+    color: #777; /* Lighter color for the authors */
+    margin-top: 0;
+}

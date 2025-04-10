@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Make sure axios is installed (`npm install axios`)
-import "./styles.css"; // Import the CSS file
+import "./styles/styles.css"; // Import the CSS file
 
 const RegisterPage = () => {
     const [email, setEmail] = useState("");
@@ -71,7 +71,7 @@ const RegisterPage = () => {
         <div className="container">
             {/* Back to Login button */}
             <button className="back-button" onClick={handleBackClick}>
-                <img src="/images/arrow.png" alt="Back" className="back-icon" />
+                <img src="arrow.png" alt="Back" className="back-icon" />
             </button>
 
             <div className="container">

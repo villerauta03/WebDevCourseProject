@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: "Istok Web", sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.backbutton {
+    background-color: #BCBCBC;
+    width: 180px;
+    height: 60px;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.backbutton:hover {
+    background-color: #AFAFAF;
+}
+
+.backbutton:active {
+    background-color: #9C9C9C;
+}
+
+.graybox {
+    background-color: #EEEEEE;
+    width: 92vw;
+    height: 38vw;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;  /* Space between sections */
+}
+
+.email-section {
+    margin-top: 40px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.email-section label {
+    font-size: 22px;
+    margin-left: -20px;
+}
+
+.password-change {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between password fields */
+    margin-top: 40px;
+}
+
+.password-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 20px;
+    width: 30%;
+}
+
+.password-field input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.password-field input:focus {
+    outline: none;
+    border-color: #002397; /* Focus border color */
+}
+
+button {
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.OK {
+    background-color: #FF8E3D;
+    width: 240px;
+    font-weight: 700;
+    height: 65px;
+    font-size: 27px;
+    font-weight: 550;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.OK:hover {
+    background-color: #fc8732;
+}
+
+.OK:active {
+    background-color: #F77C24;
+}
