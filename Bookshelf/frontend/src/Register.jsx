@@ -111,6 +111,7 @@ const RegisterPage = () => {
                     {/* Error message */}
                     {error && <div className="error-message">{error}</div>}
 
+                    <br/>
                     {/* Submit button */}
                     <button className="login-button" onClick={handleSubmit} disabled={isLoading}>
                         {isLoading ? "Rekisteröidään..." : "Rekisteröi"}
