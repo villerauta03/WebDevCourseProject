@@ -7,9 +7,16 @@ const UserSettings = () => {
     const [userEmail, setUserEmail] = useState("");
     const [loading, setLoading] = useState(true);
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false); // Modal state
-    const [password, setPassword] = useState(""); // Password input state
+    const [password, setPassword] = useState(""); // Password input state for deletion
     const [error, setError] = useState(""); // Error message state
     const [isDeleting, setIsDeleting] = useState(false); // Deleting loading state
+
+    // Password change states
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordChangeMessage, setPasswordChangeMessage] = useState("");
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
 
     // Handle user logout
     const handleLogout = () => {
@@ -20,6 +27,7 @@ const UserSettings = () => {
 
     // Handle account deletion
     const handleDeleteAccount = async () => {
+        setIsDeleting(true);
         const token = localStorage.getItem("token");
 
         try {
@@ -52,6 +60,56 @@ const UserSettings = () => {
             setIsDeleting(false);
         }
     };
+
+    const handleChangePassword = async () => {
+        if (newPassword !== confirmPassword) {
+            setPasswordChangeMessage("Uudet salasanasi eivät täsmää.");
+            return;
+        }
+
+        setIsChangingPassword(true);
+        setPasswordChangeMessage("");
+        const token = localStorage.getItem("token");
+
+        try {
+            const response = await fetch("http://localhost:5000/api/change-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    oldPassword,
+                    newPassword,
+                    confirmPassword,
+                }),
+            });
+
+            let data = {};
+            if (response.ok) {
+                data = await response.json();
+            } else {
+                // Parse the error message from the response
+                data = await response.json();
+            }
+
+            if (!response.ok) {
+                throw new Error(data.message || "Salasanan vaihto epäonnistui.");
+            }
+
+            setPasswordChangeMessage(data.message || "Salasana vaihdettu onnistuneesti.");
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+        } catch (error) {
+            console.error("Error changing password:", error);
+            setPasswordChangeMessage(error.message || "Salasanan vaihto epäonnistui.");
+        } finally {
+            setIsChangingPassword(false);
+        }
+    };
+
+
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -88,15 +146,19 @@ const UserSettings = () => {
                                 id="old-password"
                                 name="old-password"
                                 placeholder="Vanha salasana..."
+                                value={oldPassword}
+                                onChange={(e) => setOldPassword(e.target.value)}
                             />
                         </div>
-                        <br/>
+                        <br />
                         <div className="password-field">
                             <input
                                 type="password"
                                 id="new-password"
                                 name="new-password"
                                 placeholder="Uusi salasana..."
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
                             />
                         </div>
 
@@ -106,10 +168,23 @@ const UserSettings = () => {
                                 id="confirm-password"
                                 name="confirm-password"
                                 placeholder="Vahvista salasana uudestaan..."
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                         </div>
-                        <button className="OK">OK</button>
+
+                        {/* Always render the error message area */}
+                        <p className="password-change-message">{passwordChangeMessage}</p>
+
+                        <button
+                            className="OK"
+                            onClick={handleChangePassword}
+                            disabled={isChangingPassword}
+                        >
+                            {isChangingPassword ? "Odota..." : "OK"}
+                        </button>
                     </div>
+
                 </div>
 
                 {/* Right Side */}
@@ -123,7 +198,7 @@ const UserSettings = () => {
             {isConfirmationOpen && (
                 <div className="confirmation-modal">
                     <div className="modal-content">
-                        <h2>Oletko varma?<br/>Vahvista salasanasi.</h2>
+                        <h2>Oletko varma?<br />Vahvista salasanasi.</h2>
                         <input
                             type="password"
                             value={password}
@@ -133,7 +208,7 @@ const UserSettings = () => {
                         {error && <p className="error-message">{error}</p>}
                         <div className="modal-actions">
                             <button className="OK" onClick={handleDeleteAccount} disabled={isDeleting}>
-                                {isDeleting ? "Deleting..." : "OK"}
+                                {isDeleting ? "Poistetaan..." : "OK"}
                             </button>
                             <button className="backbutton" onClick={() => setIsConfirmationOpen(false)}>Peruuta</button>
                         </div>

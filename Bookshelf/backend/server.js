@@ -142,7 +142,48 @@ app.delete("/api/delete-account", authenticateToken, async (req, res) => {
     }
 });
 
+app.use((req, res, next) => {
+  res.jsonResponse = function(data, status = 200) {
+      res.status(status).json(data);
+  };
+  next();
+});
 
+app.post("/api/change-password", authenticateToken, async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.jsonResponse({ message: "Täytä kaikki ruudut." }, 400);
+  }
+
+  if (newPassword !== confirmPassword) {
+      return res.jsonResponse({ message: "Uudet salasanasi eivät täsmää." }, 400);
+  }
+
+  try {
+      const userId = req.user.id;
+      const result = await pool.query("SELECT * FROM users WHERE id = $1", [userId]);
+      const user = result.rows[0];
+
+      if (!user) {
+          return res.jsonResponse({ message: "Käyttäjää ei löydy. " }, 404);
+      }
+
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+          return res.jsonResponse({ message: "Vanha salasanasi on väärä." }, 401);
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      await pool.query("UPDATE users SET password = $1 WHERE id = $2", [hashedPassword, userId]);
+
+      res.jsonResponse({ message: "Salasana päivitetty!" });
+
+  } catch (error) {
+      console.error("Virhe salasanan vaihdossa:", error);
+      res.jsonResponse({ message: "Palvelinvirhe." }, 500);
+  }
+});
 
 
 // Start server

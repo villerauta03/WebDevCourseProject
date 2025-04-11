@@ -90,9 +90,21 @@ h1 {
 .password-change {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;  /* Add some spacing between fields */
     margin-top: 20px;
     width: 25%;
+    justify-content: flex-start; /* Aligns items at the start */
+}
+
+.password-change-message {
+    min-height: 16px;  /* Reserve space for the message */
+    margin-left: 25px;
+    min-width: 60px;
+    font-size: 16px;
+    width:100%;
+    padding: 5px;
+    margin-top: 0px;
+    color: rgb(184, 0, 0);
 }
 
 .password-field {
@@ -116,12 +128,27 @@ h1 {
     border-color: #002397;
 }
 
+/* Adjust the spacing between old password and new password fields */
+.password-field:first-child {
+    margin-top: 10px; /* Make the old password field higher */
+}
+
+.password-change .password-field:nth-child(2), 
+.password-change .password-field:nth-child(3) {
+    margin-top: 5px; /* Reduce the gap between new password and confirm password fields */
+}
+
+.password-field input:focus {
+    outline: none;
+    border-color: #002397;
+}
+
 button {
     cursor: pointer;
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 500;
     margin: 0;
 }
@@ -231,18 +258,9 @@ button:disabled {
     cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-
 .modal-actions {
     display: flex;
     justify-content: space-around;
-}
-
-.error-message {
-    color: red;
-    font-size: 0.9em;
 }
 
 /* Modal actions buttons */
