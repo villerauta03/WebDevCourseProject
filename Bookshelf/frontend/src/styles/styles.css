@@ -80,5 +80,11 @@ body, html {
     border: none;
     padding: 0;
     cursor: pointer;
+    width:30px;
+    height: 30px;
   }
   
+  .back-icon {
+    height: 45px;
+    width: 45px;
+  }
