@@ -121,26 +121,47 @@ const authenticateToken = (req, res, next) => {
   };
 
 // Delete account endpoint
+// Delete account endpoint
 app.delete("/api/delete-account", authenticateToken, async (req, res) => {
-    const userId = req.user.id; // Get the user ID from the token
-    console.log(`Attempting to delete user with ID: ${userId}`);
+  const userId = req.user.id; // Get the user ID from the token
+  const { password } = req.body; // Get the password from the request body
 
-    try {
-        // Delete the user from the database
-        const result = await pool.query("DELETE FROM users WHERE id = $1 RETURNING id", [userId]);
+  console.log(`Attempting to delete user with ID: ${userId}`);
 
-        if (result.rowCount === 0) {
-            return res.status(404).json({ message: "User not found." });
-        }
+  if (!password) {
+      return res.status(400).json({ message: "Password is required." });
+  }
 
-        console.log(`User with ID: ${userId} successfully deleted`);
-        // Send success message in response
-        res.status(200).json({ message: "User account deleted successfully." });
-    } catch (error) {
-        console.error("Error deleting user:", error);
-        res.status(500).json({ message: "Something went wrong on the server." });
-    }
+  try {
+      // Fetch user from the database
+      const userResult = await pool.query("SELECT password FROM users WHERE id = $1", [userId]);
+      const user = userResult.rows[0];
+
+      if (!user) {
+          return res.status(404).json({ message: "User not found." });
+      }
+
+      // Compare provided password with stored hash
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(401).json({ message: "Invalid password. Account not deleted." });
+      }
+
+      // Password is correct, delete the user
+      const deleteResult = await pool.query("DELETE FROM users WHERE id = $1 RETURNING id", [userId]);
+
+      if (deleteResult.rowCount === 0) {
+          return res.status(404).json({ message: "User not found." });
+      }
+
+      console.log(`User with ID: ${userId} successfully deleted`);
+      res.status(200).json({ message: "User account deleted successfully." });
+  } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ message: "Something went wrong on the server." });
+  }
 });
+
 
 app.use((req, res, next) => {
   res.jsonResponse = function(data, status = 200) {

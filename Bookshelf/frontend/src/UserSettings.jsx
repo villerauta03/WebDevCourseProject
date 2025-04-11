@@ -41,7 +41,7 @@ const UserSettings = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to delete account.");
+                throw new Error("Virhe on tapahtunut.");
             }
 
             const data = await response.json();
@@ -55,7 +55,7 @@ const UserSettings = () => {
 
         } catch (error) {
             console.error("Error deleting account:", error);
-            setError("An error occurred while deleting the account.");
+            setError("Väärä salasana!");
         } finally {
             setIsDeleting(false);
         }
@@ -66,11 +66,11 @@ const UserSettings = () => {
             setPasswordChangeMessage("Uudet salasanasi eivät täsmää.");
             return;
         }
-
+    
         setIsChangingPassword(true);
         setPasswordChangeMessage("");
         const token = localStorage.getItem("token");
-
+    
         try {
             const response = await fetch("http://localhost:5000/api/change-password", {
                 method: "POST",
@@ -84,19 +84,21 @@ const UserSettings = () => {
                     confirmPassword,
                 }),
             });
-
+    
+            const contentType = response.headers.get("content-type");
+    
             let data = {};
-            if (response.ok) {
+            if (contentType && contentType.includes("application/json")) {
                 data = await response.json();
             } else {
-                // Parse the error message from the response
-                data = await response.json();
+                const text = await response.text();
+                data.message = text; // fallback
             }
-
+    
             if (!response.ok) {
                 throw new Error(data.message || "Salasanan vaihto epäonnistui.");
             }
-
+    
             setPasswordChangeMessage(data.message || "Salasana vaihdettu onnistuneesti.");
             setOldPassword("");
             setNewPassword("");
@@ -108,8 +110,6 @@ const UserSettings = () => {
             setIsChangingPassword(false);
         }
     };
-
-
 
     useEffect(() => {
         const token = localStorage.getItem("token");

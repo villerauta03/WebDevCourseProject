@@ -20,6 +20,10 @@ const HomePage = () => {
         navigate("/settings");
     }
 
+    const goBookForm = () => {
+        navigate("/new-book");
+    }
+
     const addBook = () => {
         const newBook = {
             id: books.length + 1,
@@ -49,7 +53,7 @@ const HomePage = () => {
             {/* Top Section */}
             <div className="top-section">
                 <div className="left-side">
-                    <button className="create-button" onClick={addBook}>
+                    <button className="create-button" onClick={goBookForm}>
                         Luo
                     </button>
                 </div>

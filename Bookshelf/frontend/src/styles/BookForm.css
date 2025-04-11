@@ -1,43 +1,111 @@
+/* BookForm.css */
 .book-creation-container {
     padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #f4f4f4;
+    width: 90vw;
+    height: 40vw;
+    margin: 50px auto;
+    background-color: #f7f7f7; /* Light grey for the form background */
     border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
 h1 {
     text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
-    display: block;
     font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
 }
 
-input,
-textarea {
-    width: 100%;
+input[type="text"],
+textarea,
+input[type="date"],
+input[type="file"] {
     padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
 textarea {
-    height: 150px;
+    resize: none; /* Disable resizing for a cleaner design */
+    height: 100px;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #002397;
-    color: white;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
+}
+
+button.submit-btn {
+    background-color: #fb8500; /* Orange color for 'Lähetä' button */
+    color: white;
+}
+
+button.submit-btn:hover {
+    background-color: #ff6700; /* Slightly darker orange on hover */
+}
+
+button.cancel-btn {
+    background-color: #7e7e7e; /* Grey color for 'Peru' button */
+    color: white;
+}
+
+button.cancel-btn:hover {
+    background-color: #5e5e5e; /* Darker grey on hover */
+}
+
+/* Add alignment for input fields */
+input[type="text"],
+textarea,
+input[type="date"] {
+    width: 100%; /* Full width fields */
+}
+
+/* Align the description field */
+textarea {
+    margin-top: 5px;
+}
+
+/* Add spacing for the image upload section */
+input[type="file"] {
+    margin-top: 5px;
+}
+
+p {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .book-creation-container {
+        padding: 15px;
+        width: 90%; /* Adjust the form width */
+    }
+
+    input,
+    textarea,
+    button {
+        width: 100%; /* Make input fields and buttons full width */
+    }
 }

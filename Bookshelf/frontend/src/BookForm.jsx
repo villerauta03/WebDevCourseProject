@@ -9,14 +9,18 @@ const BookForm = ({ addBook }) => {
     const [authors, setAuthors] = useState("");
     const [description, setDescription] = useState("");
 
+    const goHome = () => {
+        navigate("/home");
+    };
+
     const handleSaveBook = () => {
         // Create the new book object
-        const newBook = { 
+        const newBook = {
             id: Date.now(), // Use a unique id like timestamp
-            icon, 
-            title, 
-            authors, 
-            description 
+            icon,
+            title,
+            authors,
+            description
         };
 
         // Add the book to the list
@@ -27,44 +31,47 @@ const BookForm = ({ addBook }) => {
     };
 
     return (
-        <div className="book-creation-container">
-            <h1>Create New Book</h1>
-            <div className="form-group">
-                <label>Icon</label>
-                <input
-                    type="text"
-                    placeholder="Enter book icon URL"
-                    value={icon}
-                    onChange={(e) => setIcon(e.target.value)}
-                />
+        <div>
+            <div className="book-creation-container">
+                <h1>Create New Book</h1>
+                <div className="form-group">
+                    <label>Icon</label>
+                    <input
+                        type="text"
+                        placeholder="Enter book icon URL"
+                        value={icon}
+                        onChange={(e) => setIcon(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Title</label>
+                    <input
+                        type="text"
+                        placeholder="Enter book title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Authors</label>
+                    <input
+                        type="text"
+                        placeholder="Enter authors"
+                        value={authors}
+                        onChange={(e) => setAuthors(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Description</label>
+                    <textarea
+                        placeholder="Enter book description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
             </div>
-            <div className="form-group">
-                <label>Title</label>
-                <input
-                    type="text"
-                    placeholder="Enter book title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <label>Authors</label>
-                <input
-                    type="text"
-                    placeholder="Enter authors"
-                    value={authors}
-                    onChange={(e) => setAuthors(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <label>Description</label>
-                <textarea
-                    placeholder="Enter book description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-            </div>
-            <button onClick={handleSaveBook}>Save Book</button>
+            <button className="sendform" onClick={handleSaveBook}>Lähetä</button>
+            <button className="cancelcreate" onClick={goHome}>Peru</button>
         </div>
     );
 };
