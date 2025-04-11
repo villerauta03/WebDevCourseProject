@@ -119,11 +119,16 @@ body, html {
 
 
 .content {
+    margin-left: 50px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid system */
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
     gap: 20px;
-    width: 100%; /* Fill parent */
+    width: 100%;
+    justify-content: flex-start; /* Items will start from the left */
 }
+
+
+
 
 .item {
     display: flex;

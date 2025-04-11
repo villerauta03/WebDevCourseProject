@@ -32,12 +32,13 @@ const HomePage = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const email = localStorage.getItem("username");
+        const userEmail = localStorage.getItem("username");
 
         if (!token) {
             navigate("/login");
             return;
         } else {
+            setUserEmail(userEmail);
             setLoading(false);
         }
 
@@ -70,7 +71,6 @@ const HomePage = () => {
                             <input type="text" className="search-input" placeholder="Hae..." />
                         </div>
                     </div>
-
                 </div>
             </div>
 
