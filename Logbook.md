@@ -15,5 +15,5 @@
 | 07.04.2025 | 5 | Käyttäjäkirjautumisen ja -rekisteröinnin toiminnallisuudet, sivujen navigoinnin setup | Loimme käyttäjätilille kirjautumisen ja rekisteröinnin toiminnallisuudet, lisäsimme sisäänkirjautumisen vahvistuksen suojatuille sivuille (esim. ellei ole kirjautunut, ei voi mennä `/settings`), index (`/`) ohjaa suoraan joko kirjautumiseen tai kotiruudulle riippuen onko käyttäjä kirjautunut sisään, lisäsimme React-komponentit ja Route-osiot tuleville sivuille jo valmiiksi. | 
 | 08.04.2025 | 4 | Kotisivun Frontend | Luotiin kotisivun navigaatiot kunnolla, alettiin rakentamaan frontendia, kehitettiin alkutilanteeseen, voidaan simuloida esimerkki kirjaItemi näkymään testaamaan kirjahyllyn näkyvyyttä. |
 | 10.04.2025 | 4 | Kotisivun ja Asetusten frontend | Luotiin kotisivu viimeistelyä päin, tarvitaan enään backend ja kirjainfot. Asetusten frontend myös suoritettu loppuun saakka, toiminnallisuukset täytyy vain lisätä. |
-
+| 11.04.2025 | 8 | Asetusten FrontEnd, Kirjaluonnin FrontEnd kehitystä, salasanan vaihto, käyttäjätilin poisto, muu frontend | Teimme asetussivun ja kotisivun frontendiin muutoksia, nyt valmiina tuloksena. Asetukset sivulle myös lisättiin toiminnallisuus poistaa käyttäjä tai vaihtaa käyttäjän salasanaa. Uloskirjautuminen mahdollistettu applikaatiossa. Aloitettu kirjanluontia, ongelmia frontendissä ja backendin suunnittelussa. |
 
