@@ -1,26 +1,46 @@
 # Projektin 2. vaihe - Perusrunko ja päätoiminnallisuudet
 
-yms yms yms
-
-## 1. Ympäristö
-
-Add something
-
-## 2. Backend
-
-Add something
-
-## 3. Frontend
-
-Add something
-
-## 4. Tietokanta
-
-Add something
-
-## 5. Perusrunko ja arkkitehtuuri
+## 1. Perusrunko ja arkkitehtuuri
 
 Verkkosovelluksemme on toteutettu käyttäen Reactia, Node.js ja Express, sekä PostgreSQL tietokantana. Tietokannassamme on kaksi eri pöytää, `users` ja `books`. Backendimme server.js kautta kutsumme useita eri API-kutsuja, jotka suorittavat toiminnallisuuksia React-koodiimme perustuen. Tyylitiedostomme olemme luoneet itse perus CSS käyttäen.  
+
+### Ympäristö
+- Ohjelmiston näkyvyyden ja toiminnallisuuden testaamiseen käytimme selaimena `Firefox 137.0.1 (64-bit)`.  
+- Kehitysympäristönämme käytimme `Visual Studio Code version 1.99.2`, ja versionhallintaan sekä tallennukseen olemme pitäneet koodia GitHubissa.
+- Frontend on rakennettu käyttäen `React 19.1.0`
+- Backend on rakennettu käyttäen `Node v22.14.0` ja `express@5.1.0` käyttäen
+- Tietokantanamme olemme käyttäneet `PostgreSQL 17.4 on x86_64-windows, compiled by msvc-19.42.34436, 64-bit`.
+- Projektimme on isännöity (host) paikallisella koneella, `http://localhost:5000` (API-kutsut) ja `http://localhost:5173` (oman paikallisen koneen frontend, saattaa olla eri jos itse kasaat tämän koneellesi)
+
+### Projektin kansiorakenne
+Projektin kansiorakenteen voi myös nähdä GitHubin sisällä menemällä Bookshelf-kansioon, mutta lyhyesti se näyttää tältä:
+```
+/backend
+  server.js
+  .env
+/frontend
+  /public
+    stockphotoman.jpg (placeholder image)
+    arrow.png
+    vite.svg
+  /src
+    /styles
+      BookForm.css
+      BookItem.css
+      home.css
+      styles.css
+      UserSettings.css
+    App.jsx
+    BookEdit.jsx
+    BookForm.jsx
+    BookInfo.jsx
+    BookItem.jsx
+    Home.jsx
+    Login.jsx
+    main.jsx
+    Register.jsx
+    UserSettings.jsx
+```
 
 ### Käytetyt lisäteknologiat
 - **Express**: Käytetään luomaan HTTP-palvelin, tarjoaa reitityksen ja middleware-tuen.
@@ -29,7 +49,7 @@ Verkkosovelluksemme on toteutettu käyttäen Reactia, Node.js ja Express, sekä 
 - **bcryptjs**: Hashaa ja vertaa salasanoja turvallisesti. Käytetään varmistamaan, että tallennetut salasanat eivät ole suoraan luettavissa tietokannasta.
 - **pg** (PostgreSQL): Mahdollistaa tietokantakyselyt PostgreSQL:n kanssa. Käytetään esimerkiksi tietojen tallentamiseen ja hakemiseen tauluista.
 - **jsonwebtoken** (JWT): Luo ja vahvistaa JSON Web Token -tokeneita. Käytetään autentikoinnissa, jotta käyttäjän istunto pysyy suojattuna.
-- **React Router**: Käytetään reitityksessä React-sovelluksessa. Tarjoaa navigointifunktion käyttäjän siirtämiseksi eri sivuille.
+- **React Router**: Käytetään reitityksessä React-sovelluksessa. Tarjoaa navigointifunktion käyttäjän siirtämiseksi eri sivuille. Erityisesti käytössämme ollut `useState` ja `useEffect`. 
 - Rekisteröinnissä käytettiin myös pikaisesti **Axios**, joka hallitsi HTTP-pyynnön lähetyksen. 
 
 ### Frontend React
@@ -47,30 +67,57 @@ React-sovelluksemme on rakennettu .jsx tiedostoihin. `App.jsx` hoitaa applikaati
 
 ### Backend server.js (Express Node.js ja PostgreSQL)
 Kutsumme monta kertaa Reactin frontendistä backendiin server.js:ssä olevia API-kutsuja. Näihin API-kutsuihin kuuluu:
-- app.post("/api/register", async (req, res) => {
-- app.post("/api/login", async (req, res) => {
-- app.delete("/api/delete-account", authenticateToken, async (req, res) => {
-- app.post("/api/change-password", authenticateToken, async (req, res) => {
-- app.get("/api/my-books", authenticateToken, async (req, res) => {
-- app.post("/api/save-book", authenticateToken, async (req, res) => {
-- app.get("/api/my-books/:id", authenticateToken, async (req, res) => {
-- app.delete('/api/my-books/:id', authenticateToken, async (req, res) => {
-- app.put('/api/my-books/:id', authenticateToken, async (req, res) => {
+- `app.post("/api/register", async (req, res) => {`: Jonka kautta luomme käyttäjien tauluun tietokannassa käyttäjän antamien sähköpostin ja salasanan avulla `"INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email"`
+- `app.post("/api/login", async (req, res) => {`: Jonka kautta annamme käyttäjälle JWT-tokenin 1 tunnin ajaksi, jos frontendistä annetaan OK vastaus salasanan ja sähköpostiosoitteen tarkistukselle. `"SELECT * FROM users WHERE email = $1"` ja `const token = jwt.sign({ id: user.id, email: user.email }, jwtSecretKey, { expiresIn: "1h",}`
+- `app.delete("/api/delete-account", authenticateToken, async (req, res) => {`: Jonka kautta poistamme käyttäjätilin jos salasana vastaa tietokannassa olevaa `"SELECT password FROM users WHERE id = $1"`. Poistamme käyttäjätilin `"DELETE FROM users WHERE id = $1 RETURNING id"`
+- `app.post("/api/change-password", authenticateToken, async (req, res) => {`: Jonka kautta vaihdamme käyttäjän salasanaa kun oikea salasana on varmistettu salasana-ruudussa `"SELECT * FROM users WHERE id = $1`. Vaihdamme käyttäjätilin salasanaa jos se onnistuu `"UPDATE users SET password = $1 WHERE id = $2"`.
+- `app.get("/api/my-books", authenticateToken, async (req, res) => {`: Jonka kautta haemme käyttäjän kirjat ja palautamme ne frontendiin `"SELECT * FROM books WHERE user_id = $1"`.
+- `app.post("/api/save-book", authenticateToken, async (req, res) => {`: Jonka kautta tallennamme muokatun kirjan kun saamme tarvittavat tiedot frontendistä `"INSERT INTO books (user_id, title, authors, description, icon_url, release_date, shelf_add_date, genres) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id"`.
+- `app.get("/api/my-books/:id", authenticateToken, async (req, res) => {`: Joka hakee tietyn kirjan tiedot frontendille kun sitä kutsutaan `"SELECT title, authors, description, icon_url, release_date, shelf_add_date, genres FROM books WHERE id = $1 AND user_id = $2"`
+- `app.delete('/api/my-books/:id', authenticateToken, async (req, res) => {`: Joka poistaa jonkun kyseisen kirjan tietokannasta kun sitä kutsutaan `'DELETE FROM books WHERE id = $1 AND user_id = $2 RETURNING id'`
+- `app.put('/api/my-books/:id', authenticateToken, async (req, res) => {`: Joka päivittää jonkun kyseisen kirjan tietoja sille annettujen tietojen perusteella `'UPDATE books SET title = $1, authors = $2, description = $3, icon_url = $4, release_date = $5, shelf_add_date = $6, genres = $7 WHERE id = $8 AND user_id = $9 RETURNING *'`
   
 Useassa kohdassa viitataan `const authenticateToken = (req, res, next) => {`, joka hallitsee JWT-tokenin validoinnin hakemalla sille lähetetystä `Authorization` headeristä `Bearer <token>` JWT-tokenin, joka tarkistetaan `jwt.verify()`:n avulla käyttämällä sovelluksessa määriteltyä salausavainta (jwtSecretKey). Validit tokenit palauttavat dekoodatut tiedot req.user objektiin käytettäväksi.  
 
-## 6. Toiminnallisuudet
+Näiden toiminnallisuuksien avulla voimme taata ohjelmiston backend-toiminnallisuuden.
+
+## 2. Toiminnallisuudet
+
+Meidän koodissamme on toiminnallisuuksia CRUD-menetelmän mukaisesti. Kokoamme keskeisimmät toiminnallisuudet alla olevaan taulukkoon:
+| Nimi | Kuvaus | Missä? |
+|------|-----------|--------------|
+| Käyttäjän automaattinen reititys JWT perusteella | Käyttäjä automaattisesti viedään suoraan joko kotiruutuun tai sisäänkirjautumiseen perustuen siihen, onko käyttäjän JWT olemassa hänen selaimen paikallisessa localStorage:ssa. | Koko applikaatiostruktuurissa (/login ja /register eivät anna sisäänkirjautuneen käyttäjän päästä sisään) |
+| Käyttäjän kyky navigoida sovelluksen sisällä | Käyttäjällä on mahdollisuus liikkua sovelluksen sisällä sivulta toiseen nappeja painamalla | Koko applikaatiostruktuurissa |
+| Sisäänkirjautuminen | Käyttäjän mahdollisuus kirjautua sisään käyttäjällä, joka on olemassa PostgreSQL-tietokannan `users`-pöydässä. Käyttäjälle tallennetaan localStorage:en JWT tokeni, joka vanhenee 1h päästä. | `Login.jsx - '/login' `|
+| Rekisteröityminen | Käyttäjä kykenee luomaan oman käyttäjätilinsä tietokantaan `users`-pöytään kutsumalla API:ta kun salasanat ja sähköpostiosoite on validoitu. Onnistuneen rekisteröinnin yhteydessä käyttäjä siirretään automaattisesti takaisin sisäänkirjautumisen sivulle. | `Register.jsx - '/register'` |
+| Käyttäjän kirjojen hakeminen | Sisäänkirjautuneen käyttäjän ID:hen linkitetyt kirjat haetaan `books`-pöydästä ja täytetään harmaaseen laatikkoon BookItemeinä. | `Home.jsx - '/home'` |
+| Kirjojen suodatus genren mukaan | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa sillä tavalla pudostusvalikosta, että vain kyseisen genren kirjat näkyvät listassa | `Home.jsx - '/home'` |
+| Kirjojen lajittelu | Harmaan laatikon sisällä olevat kirjaitemit voidaan lajitella pudotusvalikosta käyttäjän valitsemalla tavalla. Nimi A-Ö ja Ö-A, Kirjailijat A-Ö ja Ö-A, Julkaisupäivä Vanhin-Uusin ja Uusin-Vanhin, Lisäyspäivä Vanhin-Uusin ja Uusin-Vanhin | `Home.jsx - '/home'` |
+| Kirjojen hakusuodatus hakupalkin avulla | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa hakemalla nimellä kirjaa hakupalkin avulla | `Home.jsx - '/home'` |
+| Käyttäjän uloskirjautuminen | Painamalla uloskirjautumisen painiketta, käyttäjän paikallisesta localStorage:sta tyhjennetään sinne tallennettu JWT-tokeni ja muu informaatio, mikä kirjaa ulos sisäänkirjautuneen käyttäjän | `Home.jsx - '/home'`, `UserSettings.jsx - '/settings'` |
+| Kirjojen suodatus genren mukaan | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa sillä tavalla, että vain kyseisen genren kirjat näkyvät listassa | `Home.jsx - '/home'` |
+| Kirjojen suodatus genren mukaan | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa sillä tavalla, että vain kyseisen genren kirjat näkyvät listassa | `Home.jsx - '/home'` |
+| KirjaItemin painaminen avaa kyseisen kirjan inforuudun | Kirjaitemiä (`BookItem.jsx`) painaminen harmaassa laatikossa vie käyttäjän sen kyseisen kirjan tietosivulle | `Home.jsx - '/home'` |
+| Kirjan luonti | Kirjan luonti-ikkunassa täyttämällä kaikki kirjan tiedot niille osotettuihin ruutuihin (nimi, tekijä(t), kuvakkeen URL ja Lataa-painike, julkaisupäivämäärä, kuvaus) ja valitsemalla genret-valikosta kirjalle vähintaan yhden genren, kirja lisätään `books`-pöytään, ja linkitetään käyttähän ID:hen. | `BookForm.jsx - '/new-book'` |
+| Kirjan kuvakkeen URL esikatselu | Kirjan kuvakkeen URL täytettyä input-laatikkoon ja painamalla "Lataa"-painiketta esikatselu-laatikkoon tulisi ilmestyä käyttäjän täyttämässä URL:ssä oleva kuva. Muilla sivuilla se näkyy automaattisesti tietokannasta haettuna. | `BookForm.jsx - '/new-book'`, `BookInfo.jsx - '/book/:id'`, `BookEdit.jsx - '/book/edit/:id'` |
+| Kyseisen kirjan tietojen hakeminen tietokannasta | Kirjaan täytetyt tiedot haetaan infosivulle lomakkeeseen niille osotetuille kohdille näkyville käyttäjälle | `BookInfo.jsx - '/book/:id'` |
+| Kyseisen kirjan poistaminen tietokannasta | Kirja voidaan poistaa `books`-pöydästä painamalla "Poista"-painiketta kyseisen kirjan inforuudusta (`BookInfo.jsx`) | `BookInfo.jsx - '/book/:id'` |
+| Kyseisen kirjan muokkauslomakkeelle siirtyminen | Kirjan muokkaus mahdollistetaan menemällä inforuudusta (`BookInfo.jsx`) kirjanmuokkauslomake-sivulle painamalla "Muokkaa"-nappia | `BookInfo.jsx - '/book/:id'` |
+| Kyseisen kirjan tietojen hakeminen ja niiden muokaus | Kirjan tiedot haetaan tietokannasta samalla tavalla muokkauslomakkeeseen kuin inforuutuun. Kirjan tietoja kuitenkin voidaan muokkauslomakesivun sisällä muokata käyttäjän mukaan, ja tallentaa tietokantaan kyseisen kirjan tietojen päälle painamalla "Lähetä". | `BookEdit.jsx - '/book/edit/:id'` |
+
+
+
+## 3. Dokumentointi
+
+Koodin sisäinen kommentointi on suoritettu suurimmassa osassa tiedostoissa itse. Joissakin tiedostoissa ollaan mainittu, jos niiden dokumentoinnissa ollaan käytetty apuna tekoälyä. CSS-tiedostoja ei olla kommentoitu koska oli myöhä ja tuli väsy. 
+Backending `server.js` kommentointi jäi vähäiseksi, eikä sen avuksi käytetty tekoälyä. 
+
+Dokumentoinnissa GitHubin sisällä oleva README.md sisältää ohjeet, jolla asentaa kaiken tarvittavan rakenteen minkä mukaisesti applikaation voi asentaa ja sitä voidaan testata omalla koneella paikallisesti. Katso halutessasi. Tämä on siis ihan tiedostorakenteen juuressa oleva README.md, eikä se mikä on 'frontend'-kansion sisällä.
+
+## 4. Testaus ja virheenkäsittely
 
 Add something
 
-## 7. Koodin laatu ja dokumentointi
-
-Add something
-
-## 8. Testaus ja virheenkäsittely
-
-Add something
-
-## 9. Käyttöliittymä ja vuorovaikutus
+## 5. Käyttöliittymä ja vuorovaikutus
 
 Add something
