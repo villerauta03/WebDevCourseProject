@@ -1,5 +1,13 @@
+/**
+ * App.jsx
+ * Tässä tiedostossa määritellään reititys ja sovelluksen navigaatio. 
+ * Ainut toinen toiminto on toi automaattinen siirtyminen "/":stä joko "home" tai "login" riippuen JWT tokenin olemassaolosta
+ */
+
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+
+//sivut
 import LoginPage from './Login.jsx';
 import RegisterPage from './Register.jsx';
 import HomePage from './Home.jsx';
@@ -9,12 +17,15 @@ import BookForm from './BookForm.jsx';
 import BookEdit from './BookEdit.jsx';
 
 const App = () => {
+  //navigaation toiminta react-router-domin avulla
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
+    //automaattinen siirtyminen, jos ei tokenia niin vie takaisin loginiin
+    //jos tokeni on, vie homeen
     if (location.pathname === "/") {
       if (token) {
         navigate("/home");
@@ -24,6 +35,7 @@ const App = () => {
     }
   }, [navigate, location]);
 
+  //täällä kaikki navigaatiotoiminta, määritellään sivujen reitit
   return (
     <Routes>
       <Route path="/" element={null} />

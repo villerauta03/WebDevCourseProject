@@ -1,40 +1,49 @@
+/**
+ * Login.jsx
+ * tää hoitaa käyttäjän sisäänkirjautumisen. Tänne ei siis pääse jos on jo kirjautunut sisään, se lähettää suoraan kotisivulle jos JWT tokeni löytyy
+ * lähetetään käyttäjän lisäämä sähköposti ja salasana tarkistukseen backendille, jossa sisäänkirjautuminen hoidetaan
+ */
+
 import React, { useState, useEffect } from "react";
 import "./styles/styles.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  //käyttäjän lisäämät sähköposti ja salasana
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState(""); //ilmoitus käyttäjälle sisäänkirjautumisesta (jos siis joku virhe niin se näkyy tän avulla)
+  const [loading, setLoading] = useState(true); //ladataan sivu ensin
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    const token = localStorage.getItem("token"); //kahtoo onks JWT tokeni olemassa jo
+    if (token) { //lähettää kotisivulle jos se on
       navigate("/home");
-    } else {
+    } else { //muuten vaan lataa sivun
       setLoading(false);
     }
-  }, [navigate]);
+  }, [navigate]); //kutsu kun navigaatio muuttuu
 
-  const handleLogin = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/login", {
+// -- sisäänkirjautuminen hoidetaan täällä --
+  const handleLogin = async () => { //huomaa async
+    try { //try catch virheiden varalta
+      const response = await fetch("http://localhost:5000/api/login", { //tää lähetetään backendille tän apin mukaan
+        //huomaa varmistaa backendistä että toi osote on oikein
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password }), //tällä lähetetään jsonilla tonne 
       }); 
-      const data = await response.json();
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+      const data = await response.json(); //kahto se vastaus sieltä backendiltä
+      if (data.token) { //jos tokeni löytyy niin se on onnistunut
+        localStorage.setItem("token", data.token); //asetetaan sit datasta saadut tiedot käyttäjälle paikallisesti
         localStorage.setItem("username", data.user.email);
-        setMessage("Sisäänkirjautuminen onnistui.");
+        setMessage("Sisäänkirjautuminen onnistui."); //käyttäjä ei välttämättä nää tätä kun tuo vie sen suoraan kotisivulle heti
         navigate("/home");
       } else {
-        setMessage(data.message || "Sisäänkirjautuminen epäonnistui.");
+        setMessage(data.message || "Sisäänkirjautuminen epäonnistui."); //tää näkyis tuos jos siinä datassa on tapahtunu joku hässäkkä
       }
-    } catch (error) {
+    } catch (error) { //geneerinen virheviesti. tapahtuu jos esim. unohtuu pistää päälle server.js kehityksen aikana
       setMessage("On tapahtunut virhe. Yritä uudelleen.");
     }
   };

@@ -1,6 +1,12 @@
+/**
+ * BookItem.jsx
+ * Tää on noille kirjojen ikoneille objekti joka näkyy Home.jsx sivulla harmaassa laatikossa
+ * kun näistä klikkaa yhtään nii pitäis menna kyseisen kirjan BookInfo sivulle.
+ */
+
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import "./styles/BookItem.css";
+import "./styles/BookItem.css"; //oikeen oma tyyli tälle
 
 const BookItem = ({ id, icon, title, authors }) => {
     const navigate = useNavigate();

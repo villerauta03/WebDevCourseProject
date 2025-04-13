@@ -1,28 +1,52 @@
-const express = require("express");
-require("dotenv").config();
-const cors = require("cors");
-const bcrypt = require("bcryptjs");
-const { Pool } = require("pg");
-const jwt = require("jsonwebtoken");
-const app = express();
+/**
+ * server.js
+ * backend tiedosto joka hoitaa kaikki tietokannan yhteydet ja muun logiikan
+ * sisältää
+ * - käyttäjien rekisteröinnin
+ * - käyttäjien kirjautumisen
+ * - käyttäjien tilin poistamisen
+ * - käyttäjien salasanan vaihtamisen
+ * - käyttäjien kirjojen tallentamisen
+ * - käyttäjien kirjojen hakemisen
+ * - käyttäjien kirjojen poistamisen
+ * - käyttäjien kirjojen muokkaamisen
+ * - käyttäjien kirjojen tietojen hakemisen
+ * myös sisältää JWT-todennuksen käyttäjien suojaamiseksi
+ * käytetään bcryptjs-kirjastoa salasanojen hashaukseen ja vertailuun
+ * käytetään pg-kirjastoa PostgreSQL-tietokannan kanssa
+ * käytetään dotenv-kirjastoa ympäristömuuttujien lataamiseen
+ * käytetään cors-kirjastoa CORS-ongelmien ratkaisemiseen
+ * käytetään express-kirjastoa palvelimen luomiseen
+ * 
+ * huom kommentointi on jätetty muuten vähäiseksi
+ */
+const express = require("express"); // Express-kirjasto palvelimen luomiseen
+require("dotenv").config(); // Lataa ympäristömuuttujat .env-tiedostosta
+const cors = require("cors"); // CORS-kirjasto CORS-ongelmien ratkaisemiseen
+const bcrypt = require("bcryptjs"); // Bcryptjs-kirjasto salasanojen hashaukseen ja vertailuun
+const { Pool } = require("pg"); // PostgreSQL-kirjasto tietokannan kanssa työskentelyyn
+const jwt = require("jsonwebtoken"); // JWT-kirjasto JSON Web Tokenien luomiseen ja tarkistamiseen
+const app = express(); // Luo Express-sovellus
 
-const jwtSecretKey = process.env.JWT_SECRET_KEY;
+const jwtSecretKey = process.env.JWT_SECRET_KEY; // Lataa JWT-salainen avain ympäristömuuttujista (.env tiedosto hoitaa)
 
-const pool = new Pool({
+const pool = new Pool({ // Luo uusi Pool PostgreSQL-tietokannan kanssa
+  //seuraavat tiedot postgre yhteyden vaatimiseen tullaan hakemaan backendissä olevasta .env tiedostosta
   user: process.env.DATABASE_USER,
   host: process.env.DATABASE_HOST,
   database: process.env.DATABASE_NAME,
   password: process.env.DATABASE_PASSWORD,
   port: process.env.DATABASE_PORT,
 });
-pool.on("error", (err) => {
+pool.on("error", (err) => { // Käsittele tietokannan virheet
   console.error("Odottamaton virhe tietokannassa:", err);
   process.exit(-1);
 });
 
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Ota CORS käyttöön kaikissa reiteissä
+app.use(express.json()); // Ota käyttöön JSON-tiedostojen käsittely
 
+// !! -- KÄYTTÄJÄN REKISTERÖINTI -- !!
 app.post("/api/register", async (req, res) => {
   const { email, password } = req.body;
 
@@ -46,6 +70,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+// !! -- KÄYTTÄJÄN KIRJAUTUMINEN -- !!
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -81,6 +106,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+// !! -- JWT TOKENIN VALIDOINTI JA VAHVISTAMINEN -- !!
 const authenticateToken = (req, res, next) => {
   const authHeader = req.header("Authorization");
   const token = authHeader && authHeader.split(" ")[1];
@@ -98,6 +124,7 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
+// !! -- KÄYTTÄJÄN TILIN POISTAMINEN -- !!
 app.delete("/api/delete-account", authenticateToken, async (req, res) => {
   const userId = req.user.id;
   const { password } = req.body;
@@ -138,6 +165,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// !! -- KÄYTTÄJÄN SALASANAN VAIHTAMINEN -- !!
 app.post("/api/change-password", authenticateToken, async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
 
@@ -172,7 +200,8 @@ app.post("/api/change-password", authenticateToken, async (req, res) => {
     res.jsonResponse({ message: "Palvelinvirhe." }, 500);
   }
 });
-// Hae käyttäjän kirjat
+
+// !! -- KÄYTTÄJÄN KIRJOJEN HAKEMINEN -- !!
 app.get("/api/my-books", authenticateToken, async (req, res) => {
   const userId = req.user.id;
 
@@ -185,6 +214,7 @@ app.get("/api/my-books", authenticateToken, async (req, res) => {
   }
 });
 
+// !! -- KÄYTTÄJÄN KIRJOJEN TALLENTAMINEN -- !!
 app.post("/api/save-book", authenticateToken, async (req, res) => {
   const { title, authors, description, icon, releaseDate, shelfAddDate, genres } = req.body;
   const userId = req.user.id;
@@ -215,6 +245,10 @@ app.post("/api/save-book", authenticateToken, async (req, res) => {
   }
 });
 
+
+//READ (CRUD)
+// !! -- KÄYTTÄJÄN KIRJOJEN YKSILLINEN HAKU (BookInfo-sivulle) -- !!
+// Hae tietty kirja ID:llä
 app.get("/api/my-books/:id", authenticateToken, async (req, res) => {
   const bookId = req.params.id;
   const userId = req.user.id;
@@ -236,7 +270,8 @@ app.get("/api/my-books/:id", authenticateToken, async (req, res) => {
   }
 });
 
-// Poista tietty kirja ID:llä
+//DELETE (CRUD)
+// !! -- KÄYTTÄJÄN KIRJOJEN POISTAMINEN -- !!
 app.delete('/api/my-books/:id', authenticateToken, async (req, res) => {
   const bookId = req.params.id;
   const userId = req.user.id;
@@ -258,7 +293,8 @@ app.delete('/api/my-books/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Muokkaa tiettyä kirjaa ID:llä
+// UPDATE (CRUD)
+// !! -- KÄYTTÄJÄN KIRJOJEN MUOKKAAMINEN -- !!
 app.put('/api/my-books/:id', authenticateToken, async (req, res) => {
   const bookId = req.params.id;
   const userId = req.user.id;
@@ -291,7 +327,7 @@ app.put('/api/my-books/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Käynnistä palvelin
+// !! -- PALVELIN KÄYNNISTYY TÄÄLTÄ -- !!
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Palvelin käynnissä portissa ${PORT}`);
