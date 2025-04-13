@@ -38,9 +38,13 @@ const BookEdit = () => {
     };
 
     useEffect(() => {
-        const fetchBookDetails = async () => {
-            const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+            return;
+        }
 
+        const fetchBookDetails = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/api/my-books/${id}`, {
                     method: "GET",
@@ -61,7 +65,6 @@ const BookEdit = () => {
                     alert(data.message || "Virhe kirjatietojen haussa.");
                 }
             } catch (error) {
-                console.error("Virhe kirjatietojen haussa:", error);
                 alert("Jotain meni väärin.");
             } finally {
                 setLoading(false);
@@ -69,7 +72,7 @@ const BookEdit = () => {
         };
 
         fetchBookDetails();
-    }, [id]);
+    }, [id, navigate]);
 
     const handleLoadIcon = () => {
         setPreviewURL(iconURL);
@@ -100,13 +103,11 @@ const BookEdit = () => {
 
             const data = await response.json();
             if (response.ok) {
-                alert("Kirja päivitetty onnistuneesti!");
                 navigate("/home");
             } else {
                 alert(data.message || "Kirjan päivitys epäonnistui.");
             }
         } catch (error) {
-            console.error("Virhe kirjan päivityksessä:", error);
             alert("Jotain meni väärin.");
         }
     };

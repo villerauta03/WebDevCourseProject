@@ -57,7 +57,6 @@ const BookInfo = () => {
             }
 
             const data = await response.json();
-            alert(data.message || "Kirja poistettu onnistuneesti.");
             navigate("/"); 
         } catch (error) {
             console.error("Virhe kirjan poistossa:", error);

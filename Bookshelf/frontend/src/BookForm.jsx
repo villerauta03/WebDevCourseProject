@@ -36,40 +36,19 @@ const BookForm = ({ addBook }) => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     setShelfAddDate(formattedDate);
-  }, []);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const token = localStorage.getItem("token");
-
-      try {
-        const response = await fetch("http://localhost:5000/api/my-books", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          // Possibly save the data to the state if needed
-        } else {
-          alert(data.message);
-        }
-      } catch (error) {
-        console.error("Virhe kirjojen hakemisessa:", error);
-        alert("Jotain meni vikaan.");
-      }
-    };
-
-    fetchBooks();
-  }, []);
+  }, [navigate]);
 
   const goHome = () => {
     navigate("/home");
@@ -107,7 +86,6 @@ const BookForm = ({ addBook }) => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Kirja tallennettu onnistuneesti!");
         navigate("/home");
       } else {
         setWarningMessage(data.message || "Jotain meni vikaan.");
