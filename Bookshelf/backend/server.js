@@ -16,156 +16,124 @@ const pool = new Pool({
   port: process.env.DATABASE_PORT,
 });
 pool.on("error", (err) => {
-  console.error("Unexpected database error:", err);
+  console.error("Odottamaton virhe tietokannassa:", err);
   process.exit(-1);
 });
 
 app.use(cors());
-app.use(express.json()); // To parse JSON body
+app.use(express.json());
 
-// Register endpoint
 app.post("/api/register", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({
-      message: "Email and password are required.",
-    });
+    return res.status(400).json({ message: "Sähköposti ja salasana vaaditaan." });
   }
 
   try {
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Insert user into the database
     const result = await pool.query(
       "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email",
-      [email, hashedPassword],
+      [email, hashedPassword]
     );
-
-    // Respond with success message
     res.status(201).json({
-      message: "User registered successfully.",
-      user: result.rows[0], // Return the created user
+      message: "Käyttäjä rekisteröity onnistuneesti.",
+      user: result.rows[0],
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Something went wrong on the server." });
+    console.error("Virhe rekisteröinnissä:", error);
+    res.status(500).json({ message: "Jotain meni vikaan palvelinpuolella." });
   }
 });
 
-//login endpoint
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({
-      message: "Email and password are required.",
-    });
+    return res.status(400).json({ message: "Sähköposti ja salasana vaaditaan." });
   }
 
   try {
-    // Fetch user from the database
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
+    const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
     const user = result.rows[0];
 
     if (!user) {
-      return res.status(401).json({
-        message: "Invalid credentials. No user found.",
-      });
+      return res.status(401).json({ message: "Väärät tiedot. Käyttäjää ei löydy." });
     }
 
-    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({
-        message: "Invalid credentials. Wrong password.",
-      });
+      return res.status(401).json({ message: "Väärät tiedot. Salasana on väärä." });
     }
 
-    // Generate JWT token
     const token = jwt.sign({ id: user.id, email: user.email }, jwtSecretKey, {
       expiresIn: "1h",
     });
 
-    // Respond with success message and token
     res.json({
-      message: "Login successful.",
+      message: "Sisäänkirjautuminen onnistui!",
       token,
       user: { id: user.id, email: user.email },
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Something went wrong." });
+    console.error("Virhe kirjautumisessa:", error);
+    res.status(500).json({ message: "Jotain meni vikaan." });
   }
 });
 
-// Middleware to authenticate token
 const authenticateToken = (req, res, next) => {
-    const authHeader = req.header("Authorization");
-    const token = authHeader && authHeader.split(" ")[1]; // Extract token after "Bearer"
-  
-    if (!token) {
-      return res.sendStatus(401); // Unauthorized
-    }
-  
-    try {
-      const verified = jwt.verify(token, jwtSecretKey);
-      req.user = verified;
-      next(); // Proceed to the protected route
-    } catch (error) {
-      return res.sendStatus(401); // Invalid token
-    }
-  };
+  const authHeader = req.header("Authorization");
+  const token = authHeader && authHeader.split(" ")[1];
 
-// Delete account endpoint
-// Delete account endpoint
-app.delete("/api/delete-account", authenticateToken, async (req, res) => {
-  const userId = req.user.id; // Get the user ID from the token
-  const { password } = req.body; // Get the password from the request body
-
-  console.log(`Attempting to delete user with ID: ${userId}`);
-
-  if (!password) {
-      return res.status(400).json({ message: "Password is required." });
+  if (!token) {
+    return res.sendStatus(401);
   }
 
   try {
-      // Fetch user from the database
-      const userResult = await pool.query("SELECT password FROM users WHERE id = $1", [userId]);
-      const user = userResult.rows[0];
-
-      if (!user) {
-          return res.status(404).json({ message: "User not found." });
-      }
-
-      // Compare provided password with stored hash
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-          return res.status(401).json({ message: "Invalid password. Account not deleted." });
-      }
-
-      // Password is correct, delete the user
-      const deleteResult = await pool.query("DELETE FROM users WHERE id = $1 RETURNING id", [userId]);
-
-      if (deleteResult.rowCount === 0) {
-          return res.status(404).json({ message: "User not found." });
-      }
-
-      console.log(`User with ID: ${userId} successfully deleted`);
-      res.status(200).json({ message: "User account deleted successfully." });
+    const verified = jwt.verify(token, jwtSecretKey);
+    req.user = verified;
+    next();
   } catch (error) {
-      console.error("Error deleting user:", error);
-      res.status(500).json({ message: "Something went wrong on the server." });
+    res.sendStatus(401);
+  }
+};
+
+app.delete("/api/delete-account", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  const { password } = req.body;
+
+  if (!password) {
+    return res.status(400).json({ message: "Salasana vaaditaan." });
+  }
+
+  try {
+    const userResult = await pool.query("SELECT password FROM users WHERE id = $1", [userId]);
+    const user = userResult.rows[0];
+
+    if (!user) {
+      return res.status(404).json({ message: "Käyttäjää ei löydetty." });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Väärä salasana. Tiliä ei poistettu." });
+    }
+
+    const deleteResult = await pool.query("DELETE FROM users WHERE id = $1 RETURNING id", [userId]);
+
+    if (deleteResult.rowCount === 0) {
+      return res.status(404).json({ message: "Käyttäjää ei löydetty." });
+    }
+    res.status(200).json({ message: "Käyttäjätili poistettu onnistuneesti." });
+  } catch (error) {
+    console.error("Virhe tilin poistossa:", error);
+    res.status(500).json({ message: "Jotain meni vikaan palvelinpuolella." });
   }
 });
 
-
 app.use((req, res, next) => {
-  res.jsonResponse = function(data, status = 200) {
-      res.status(status).json(data);
+  res.jsonResponse = function (data, status = 200) {
+    res.status(status).json(data);
   };
   next();
 });
@@ -174,41 +142,157 @@ app.post("/api/change-password", authenticateToken, async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
 
   if (!oldPassword || !newPassword || !confirmPassword) {
-      return res.jsonResponse({ message: "Täytä kaikki ruudut." }, 400);
+    return res.jsonResponse({ message: "Täytä kaikki ruudut." }, 400);
   }
 
   if (newPassword !== confirmPassword) {
-      return res.jsonResponse({ message: "Uudet salasanasi eivät täsmää." }, 400);
+    return res.jsonResponse({ message: "Uudet salasanasi eivät täsmää." }, 400);
   }
 
   try {
-      const userId = req.user.id;
-      const result = await pool.query("SELECT * FROM users WHERE id = $1", [userId]);
-      const user = result.rows[0];
+    const userId = req.user.id;
+    const result = await pool.query("SELECT * FROM users WHERE id = $1", [userId]);
+    const user = result.rows[0];
 
-      if (!user) {
-          return res.jsonResponse({ message: "Käyttäjää ei löydy. " }, 404);
-      }
+    if (!user) {
+      return res.jsonResponse({ message: "Käyttäjää ei löydy." }, 404);
+    }
 
-      const isMatch = await bcrypt.compare(oldPassword, user.password);
-      if (!isMatch) {
-          return res.jsonResponse({ message: "Vanha salasanasi on väärä." }, 401);
-      }
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.jsonResponse({ message: "Vanha salasanasi on väärä." }, 401);
+    }
 
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      await pool.query("UPDATE users SET password = $1 WHERE id = $2", [hashedPassword, userId]);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await pool.query("UPDATE users SET password = $1 WHERE id = $2", [hashedPassword, userId]);
 
-      res.jsonResponse({ message: "Salasana päivitetty!" });
-
+    res.jsonResponse({ message: "Salasana päivitetty!" });
   } catch (error) {
-      console.error("Virhe salasanan vaihdossa:", error);
-      res.jsonResponse({ message: "Palvelinvirhe." }, 500);
+    console.error("Virhe salasanan vaihdossa:", error);
+    res.jsonResponse({ message: "Palvelinvirhe." }, 500);
+  }
+});
+// Hae käyttäjän kirjat
+app.get("/api/my-books", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const result = await pool.query("SELECT * FROM books WHERE user_id = $1", [userId]);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Virhe kirjojen hakemisessa:", error);
+    res.status(500).json({ message: "Jotain meni vikaan palvelinpuolella." });
   }
 });
 
+app.post("/api/save-book", authenticateToken, async (req, res) => {
+  const { title, authors, description, icon, releaseDate, shelfAddDate, genres } = req.body;
+  const userId = req.user.id;
 
-// Start server
+  if (!title || !authors || !description || !icon || !releaseDate || !shelfAddDate || !genres) {
+    return res.status(400).json({
+      message: "Kaikki kentät täytyy täyttää.",
+    });
+  }
+
+  try {
+    const genresString = Array.isArray(genres) ? genres.join(",") : genres;
+
+    const result = await pool.query(
+      "INSERT INTO books (user_id, title, authors, description, icon_url, release_date, shelf_add_date, genres) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+      [userId, title, authors, description, icon, releaseDate, shelfAddDate, genresString]
+    );
+
+    const newBookId = result.rows[0].id;
+
+    res.status(201).json({
+      message: "Kirja luotiin onnistuneesti!",
+      bookId: newBookId,
+    });
+  } catch (error) {
+    console.error("Virhe kirjan luomisessa:", error);
+    res.status(500).json({ message: "Jotain meni vikaan palvelinpuolella." });
+  }
+});
+
+app.get("/api/my-books/:id", authenticateToken, async (req, res) => {
+  const bookId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const result = await pool.query(
+      "SELECT title, authors, description, icon_url, release_date, shelf_add_date, genres FROM books WHERE id = $1 AND user_id = $2",
+      [bookId, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Kirjaa ei löytynyt." });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Virhe kirjan hakemisessa:", error);
+    res.status(500).json({ message: "Virhe kirjan tietojen hakemisessa." });
+  }
+});
+
+// Poista tietty kirja ID:llä
+app.delete('/api/my-books/:id', authenticateToken, async (req, res) => {
+  const bookId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const result = await pool.query(
+      'DELETE FROM books WHERE id = $1 AND user_id = $2 RETURNING id',
+      [bookId, userId]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Kirjaa ei löytynyt tai se ei kuulu käyttäjälle.' });
+    }
+
+    res.status(200).json({ message: 'Kirja poistettiin onnistuneesti.' });
+  } catch (error) {
+    console.error("Virhe kirjan poistossa:", error);
+    res.status(500).json({ message: "Jotain meni vikaan palvelinpuolella." });
+  }
+});
+
+// Muokkaa tiettyä kirjaa ID:llä
+app.put('/api/my-books/:id', authenticateToken, async (req, res) => {
+  const bookId = req.params.id;
+  const userId = req.user.id;
+  const { title, authors, description, icon_url, release_date, shelf_add_date, genres } = req.body;
+
+  if (!title || !authors || !description || !icon_url || !release_date || !shelf_add_date) {
+    return res.status(400).json({
+      message: 'Kaikki kentät täytyy täyttää.',
+    });
+  }
+
+  try {
+    const result = await pool.query(
+      'UPDATE books SET title = $1, authors = $2, description = $3, icon_url = $4, release_date = $5, shelf_add_date = $6, genres = $7 WHERE id = $8 AND user_id = $9 RETURNING *',
+      [title, authors, description, icon_url, release_date, shelf_add_date, genres, bookId, userId]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        message: 'Kirjaa ei löytynyt tai se ei kuulu käyttäjälle.',
+      });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Virhe kirjan päivittämisessä:", error);
+    res.status(500).json({
+      message: "Jotain meni vikaan palvelinpuolella.",
+    });
+  }
+});
+
+// Käynnistä palvelin
 const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Palvelin käynnissä portissa ${PORT}`);
 });

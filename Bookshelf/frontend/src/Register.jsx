@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Make sure axios is installed (`npm install axios`)
-import "./styles/styles.css"; // Import the CSS file
+import axios from "axios";
+import "./styles/styles.css";
 
 const RegisterPage = () => {
     const [email, setEmail] = useState("");
@@ -11,7 +11,6 @@ const RegisterPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
-    // Redirect if user is already logged in
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -42,17 +41,15 @@ const RegisterPage = () => {
 
         try {
             const response = await axios.post("http://localhost:5000/api/register", userData);
-            console.log(response.data);
             navigate("/login");
         } catch (error) {
             setError("Rekisteröinti epäonnistui. Yritä uudelleen.");
-            console.error(error);
             if (error.response) {
                 setError(error.response.data.message);
             } else if (error.request) {
-                setError("No response from server. Please check your connection.");
+                setError("Ei vastausta palvelimelta. Tarkista verkkoyhteys.");
             } else {
-                setError("An unexpected error occurred.");
+                setError("Tapahtui odottamaton virhe.");
             }
         } finally {
             setIsLoading(false);
@@ -62,23 +59,20 @@ const RegisterPage = () => {
     const handleBackClick = () => {
         navigate("/login");
     };
-    
+
     if (isLoading) {
         return null;
     }
 
     return (
         <div className="container">
-            {/* Back to Login button */}
             <button className="back-button" onClick={handleBackClick}>
-                <img src="arrow.png" alt="Back" className="back-icon" />
+                <img src="arrow.png" alt="Takaisin" className="back-icon" />
             </button>
 
             <div className="container">
                 <div className="login-box">
                     <h2 className="title">Rekisteröidy</h2>
-
-                    {/* Email input */}
                     <input
                         type="email"
                         placeholder="Sähköpostiosoite..."
@@ -87,8 +81,6 @@ const RegisterPage = () => {
                         onChange={handleEmailChange}
                     />
                     <br />
-
-                    {/* Password input */}
                     <input
                         type="password"
                         placeholder="Salasana..."
@@ -97,8 +89,6 @@ const RegisterPage = () => {
                         onChange={handlePasswordChange}
                     />
                     <br />
-
-                    {/* Confirm password input */}
                     <input
                         type="password"
                         placeholder="Vahvista salasana..."
@@ -107,12 +97,8 @@ const RegisterPage = () => {
                         onChange={handleConfirmPasswordChange}
                     />
                     <br />
-
-                    {/* Error message */}
                     {error && <div className="error-message">{error}</div>}
-
-                    <br/>
-                    {/* Submit button */}
+                    <br />
                     <button className="login-button" onClick={handleSubmit} disabled={isLoading}>
                         {isLoading ? "Rekisteröidään..." : "Rekisteröi"}
                     </button>

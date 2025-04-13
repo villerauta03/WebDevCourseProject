@@ -29,14 +29,13 @@ const LoginPage = () => {
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.user.email);
-        setMessage("Login successful.");
+        setMessage("Sisäänkirjautuminen onnistui.");
         navigate("/home");
       } else {
-        setMessage(data.message || "Login failed.");
+        setMessage(data.message || "Sisäänkirjautuminen epäonnistui.");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      setMessage("An error occurred. Please try again.");
+      setMessage("On tapahtunut virhe. Yritä uudelleen.");
     }
   };
 

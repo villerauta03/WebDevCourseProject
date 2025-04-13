@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles/UserSettings.css"; // Make sure this path is correct!
+import "./styles/UserSettings.css";
 
 const UserSettings = () => {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState("");
     const [loading, setLoading] = useState(true);
-    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false); // Modal state
-    const [password, setPassword] = useState(""); // Password input state for deletion
-    const [error, setError] = useState(""); // Error message state
-    const [isDeleting, setIsDeleting] = useState(false); // Deleting loading state
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
 
-    // Password change states
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordChangeMessage, setPasswordChangeMessage] = useState("");
     const [isChangingPassword, setIsChangingPassword] = useState(false);
 
-    // Handle user logout
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         navigate("/login");
     };
 
-    // Handle account deletion
     const handleDeleteAccount = async () => {
         setIsDeleting(true);
         const token = localStorage.getItem("token");
@@ -47,14 +44,12 @@ const UserSettings = () => {
             const data = await response.json();
 
             if (data.message) {
-                console.log(data.message);
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
                 navigate("/login");
             }
 
         } catch (error) {
-            console.error("Error deleting account:", error);
             setError("Väärä salasana!");
         } finally {
             setIsDeleting(false);
@@ -92,7 +87,7 @@ const UserSettings = () => {
                 data = await response.json();
             } else {
                 const text = await response.text();
-                data.message = text; // fallback
+                data.message = text;
             }
     
             if (!response.ok) {
@@ -104,7 +99,6 @@ const UserSettings = () => {
             setNewPassword("");
             setConfirmPassword("");
         } catch (error) {
-            console.error("Error changing password:", error);
             setPasswordChangeMessage(error.message || "Salasanan vaihto epäonnistui.");
         } finally {
             setIsChangingPassword(false);
@@ -131,7 +125,6 @@ const UserSettings = () => {
             </div>
 
             <div className="graybox">
-                {/* Left Side */}
                 <div className="left-side">
                     <div className="email-section">
                         <label htmlFor="email">Sähköpostiosoite:</label>
@@ -173,7 +166,6 @@ const UserSettings = () => {
                             />
                         </div>
 
-                        {/* Always render the error message area */}
                         <p className="password-change-message">{passwordChangeMessage}</p>
 
                         <button
@@ -184,34 +176,44 @@ const UserSettings = () => {
                             {isChangingPassword ? "Odota..." : "OK"}
                         </button>
                     </div>
-
                 </div>
 
-                {/* Right Side */}
                 <div className="right-side">
                     <button className="logout-button" onClick={handleLogout}>Kirjaudu ulos</button>
                     <button className="delete-button" onClick={() => setIsConfirmationOpen(true)}>Poista tili</button>
                 </div>
             </div>
 
-            {/* Modal for Account Deletion Confirmation */}
             {isConfirmationOpen && (
                 <div className="confirmation-modal">
                     <div className="modal-content">
                         <h2>Oletko varma?<br />Vahvista salasanasi.</h2>
+                        {error && <p className="error-message">{error}</p>}
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Salasana..."
                         />
-                        {error && <p className="error-message">{error}</p>}
                         <div className="modal-actions">
-                            <button className="OK" onClick={handleDeleteAccount} disabled={isDeleting}>
-                                {isDeleting ? "Poistetaan..." : "OK"}
+                            <button className="OK" 
+                            onClick={ () => {
+                                handleDeleteAccount();
+                                setPassword("");
+                            } }
+                            disabled={isDeleting}
+                            >
+                                OK
                             </button>
-                            <button className="backbutton" onClick={() => setIsConfirmationOpen(false)}>Peruuta</button>
-                        </div>
+                            <button className="backbutton" 
+                            onClick={() => {
+                                setIsConfirmationOpen(false);
+                                setPassword("");
+                                setError("");
+                            } }
+                            >
+                                Peruuta</button>
+                        </div>  
                     </div>
                 </div>
             )}
