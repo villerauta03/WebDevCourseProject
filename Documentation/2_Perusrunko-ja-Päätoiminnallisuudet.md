@@ -95,8 +95,6 @@ Meidän koodissamme on toiminnallisuuksia CRUD-menetelmän mukaisesti. Kokoamme 
 | Kirjojen lajittelu | Harmaan laatikon sisällä olevat kirjaitemit voidaan lajitella pudotusvalikosta käyttäjän valitsemalla tavalla. Nimi A-Ö ja Ö-A, Kirjailijat A-Ö ja Ö-A, Julkaisupäivä Vanhin-Uusin ja Uusin-Vanhin, Lisäyspäivä Vanhin-Uusin ja Uusin-Vanhin | `Home.jsx - '/home'` |
 | Kirjojen hakusuodatus hakupalkin avulla | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa hakemalla nimellä kirjaa hakupalkin avulla | `Home.jsx - '/home'` |
 | Käyttäjän uloskirjautuminen | Painamalla uloskirjautumisen painiketta, käyttäjän paikallisesta localStorage:sta tyhjennetään sinne tallennettu JWT-tokeni ja muu informaatio, mikä kirjaa ulos sisäänkirjautuneen käyttäjän | `Home.jsx - '/home'`, `UserSettings.jsx - '/settings'` |
-| Kirjojen suodatus genren mukaan | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa sillä tavalla, että vain kyseisen genren kirjat näkyvät listassa | `Home.jsx - '/home'` |
-| Kirjojen suodatus genren mukaan | Harmaan laatikon sisällä olevat kirjaitemit voidaan suodattaa sillä tavalla, että vain kyseisen genren kirjat näkyvät listassa | `Home.jsx - '/home'` |
 | KirjaItemin painaminen avaa kyseisen kirjan inforuudun | Kirjaitemiä (`BookItem.jsx`) painaminen harmaassa laatikossa vie käyttäjän sen kyseisen kirjan tietosivulle | `Home.jsx - '/home'` |
 | Kirjan luonti | Kirjan luonti-ikkunassa täyttämällä kaikki kirjan tiedot niille osotettuihin ruutuihin (nimi, tekijä(t), kuvakkeen URL ja Lataa-painike, julkaisupäivämäärä, kuvaus) ja valitsemalla genret-valikosta kirjalle vähintaan yhden genren, kirja lisätään `books`-pöytään, ja linkitetään käyttähän ID:hen. | `BookForm.jsx - '/new-book'` |
 | Kirjan kuvakkeen URL esikatselu | Kirjan kuvakkeen URL täytettyä input-laatikkoon ja painamalla "Lataa"-painiketta esikatselu-laatikkoon tulisi ilmestyä käyttäjän täyttämässä URL:ssä oleva kuva. Muilla sivuilla se näkyy automaattisesti tietokannasta haettuna. | `BookForm.jsx - '/new-book'`, `BookInfo.jsx - '/book/:id'`, `BookEdit.jsx - '/book/edit/:id'` |
@@ -104,8 +102,9 @@ Meidän koodissamme on toiminnallisuuksia CRUD-menetelmän mukaisesti. Kokoamme 
 | Kyseisen kirjan poistaminen tietokannasta | Kirja voidaan poistaa `books`-pöydästä painamalla "Poista"-painiketta kyseisen kirjan inforuudusta (`BookInfo.jsx`) | `BookInfo.jsx - '/book/:id'` |
 | Kyseisen kirjan muokkauslomakkeelle siirtyminen | Kirjan muokkaus mahdollistetaan menemällä inforuudusta (`BookInfo.jsx`) kirjanmuokkauslomake-sivulle painamalla "Muokkaa"-nappia | `BookInfo.jsx - '/book/:id'` |
 | Kyseisen kirjan tietojen hakeminen ja niiden muokaus | Kirjan tiedot haetaan tietokannasta samalla tavalla muokkauslomakkeeseen kuin inforuutuun. Kirjan tietoja kuitenkin voidaan muokkauslomakesivun sisällä muokata käyttäjän mukaan, ja tallentaa tietokantaan kyseisen kirjan tietojen päälle painamalla "Lähetä". | `BookEdit.jsx - '/book/edit/:id'` |
-
-
+| Sähköpostiosoitteen hakeminen ja esitys | Käyttäjäasetuksissa käyttäjä voi katsella omaa sähköpostisosoitettaan, joka haetaan sisäänkirjautuneen käyttäjän paikallista localStorage:a käyttäen. | `UserSettings.jsx - '/settings'` |
+| Salasanan vaihtaminen | Käyttäjällä on mahdollisuus vaihtaa salasanansa täyttämällä kolmeen tekstiruutuun 1. tämänhetkinen salasana 2. uusi salasana 3. uusi salasana uudestaan. Viimeisen kahden salasanat pitää olla samat, tai salasanan vaihto ei mene läpi. | `UserSettings.jsx - '/settings'` |
+| Käyttäjätilin poisto | Käyttäjä voi poistaa oman käyttäjätilinsä painamalla "Poista tili" painiketta, joka avaa vahvistusruudun (modal). Tässä ruudussa käyttäjän on täyettävä salasanansa oikein ja painettava "OK" että tili poistetaan. Jos salasana on väärin, näkyy virheilmoitus. Kun tili on poistettu `users`-pöydästä, käyttäjän localStorage:sta poistetaan JWT-tokeni ja sähköpostiosoite, ja hänet viedään takaisin sisäänkirjautumisruudulle (`/login`) | `UserSettings.jsx - '/settings'` |
 
 ## 3. Dokumentointi
 
@@ -114,10 +113,39 @@ Backending `server.js` kommentointi jäi vähäiseksi, eikä sen avuksi käytett
 
 Dokumentoinnissa GitHubin sisällä oleva README.md sisältää ohjeet, jolla asentaa kaiken tarvittavan rakenteen minkä mukaisesti applikaation voi asentaa ja sitä voidaan testata omalla koneella paikallisesti. Katso halutessasi. Tämä on siis ihan tiedostorakenteen juuressa oleva README.md, eikä se mikä on 'frontend'-kansion sisällä.
 
+Eli siis kyseessä on seuraava tiedosto: [README](https://github.com/villerauta03/WebDevCourseProject/blob/main/README.md)
+
 ## 4. Testaus ja virheenkäsittely
 
-Add something
+Sovelluksen testaukset suoritettiin päämäärin käyttäjätestauksen avulla. Toiminnallisuuden testaukset määriteltiin omien kriteerien mukaan, eli "kunhan se onnistuu". 
 
-## 5. Käyttöliittymä ja vuorovaikutus
+| Toiminnallisuus | Toimiiko ? |
+|-----------------|-|
+| Käyttäjän automaattinen reititys JWT perusteella | ✅ |
+| Käyttäjän kyky navigoida sovelluksen sisällä | ✅ |
+| Sisäänkirjautuminen | ✅ |
+| Rekisteröityminen | ✅ |
+| Käyttäjän automaattinen reititys JWT perusteella | ✅ |
+| Käyttäjän kirjojen hakeminen | ✅ |
+| Kirjojen suodatus genren mukaan | ✅ |
+| Kirjojen lajittelu | ✅ |
+| Kirjojen hakusuodatus hakupalkin avulla | ✅ |
+| Käyttäjän uloskirjautuminen | ✅ |
+| KirjaItemin painaminen avaa kyseisen kirjan inforuudun | ✅ |
+| Kirjan luonti | ✅ |
+| Kirjan kuvakkeen URL esikatselu | ✅ |
+| Kyseisen kirjan tietojen hakeminen tietokannasta | ✅ |
+| Kyseisen kirjan poistaminen tietokannasta | ✅ |
+| Kyseisen kirjan muokkauslomakkeelle siirtyminen | ✅ |
+| Kyseisen kirjan tietojen hakeminen ja niiden muokaus | ✅ |
+| Sähköpostiosoitteen hakeminen ja esitys | ✅ |
+| Salasanan vaihtaminen | ✅ |
+| Käyttäjätilin poisto | ✅ |
 
-Add something
+Virheenkäsittelyssä käytämme paljon apuna verkkoselaimen konsolia (Inspect Element -> Console), kun joku virhe tapahtuu. Virheviestit lähetetään koodissamme yleensä sinne. Muuten virheitä hallitaan `try-catch` rakenteen avulla, joka ollaan sijoitettu lähes jokaisen toiminnallisuuden ympärille, sekä jokaisen API-kutsun ympärille server.js backend-tiedostossa. Käyttäjille myös yleensä näytetään virhe-ilmoitus, jos jokin ei toimi (esim. jos server.js jää käynnistymättä.) 
+
+## 5. Käyttöliittymä
+
+Käyttöliittymämme CSS-tyylitiedostot ollaan kaikki kasattu 'src'-kansion sisällä olevaan 'styles'-kansioon, josta niitä kutsutaan tarpeen mukaan.  CSS:ssä ei olla harjoiteltu mielestäni tarpeeksi responsiivista suunnittelua tai käyttöliittymän kasaamista.
+
+BookForm.jsx, BookEdit.jsx, ja BookInfo.jsx kaikki käyttävät samaa tyylitystä ja ylipäistä rakennetta, samoin kuin Login.jsx ja Register.jsx. Olemme myös pyrkineet käyttämään 'Istok Web'-fonttia, jota pyrimme hakemaan Googlelta, mutta se ei aina rakenteessamme toimi. 
