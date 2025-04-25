@@ -27,21 +27,21 @@ Käyttäjä myös siirretään takaisin sisäänkirjautumiseen, jos hän yrittä
 
 | Käyttötapaus | Toteutettu (Kyllä/Ei) | Esittely / Huomiot |
 |--------------|------------------------|---------------------|
-| Käyttäjän rekisteröinti | Kyllä |  |
-| Käyttäjän sisäänkirjautuminen | Kyllä |  |
-| Käyttäjän uloskirjautuminen | Kyllä | |
-| Käyttäjän automaattinen uudelleenohjaus | Kyllä | Ei määritelty alkusuunnitelmassa. |
-| Kirjojen listan näkyvyys | Kyllä | |
+| Käyttäjän rekisteröinti | Kyllä | Videolla 2:00 |
+| Käyttäjän sisäänkirjautuminen | Kyllä | Videolla 2:25  |
+| Käyttäjän uloskirjautuminen | Kyllä | Videolla 2:48 |
+| Käyttäjän automaattinen uudelleenohjaus | Kyllä | Videolla 2:55<br>Ei määritelty alkusuunnitelmassa. |
+| Kirjojen listan näkyvyys | Kyllä | Videolla 5:45  |
 | Kirjojen merkitseminen luetuksi | Ei | Toiminnallisuus unohtui kunnes oli liian myöhä. |
-| Kirjojen lisäys listaan | Kyllä | Ei voitu lisätä erillistä kuvan tallennusta,<br>käytämme URL.<br>Kirjan genret ei olla tallennettu<br>käyttäjän tietokantaan, vaan<br>itse koodiin.|
-| Kirjojen haku listasta | Kyllä | |
-| Kirjojen lajittelu pudotusvalikosta | Kyllä | |
-| Kirjojen suodatus genren mukaan | Kyllä | Jatkokehityksessä voidaan lisätä käyttäjän<br>mahdollisuus lisätä omat genrensä.<br>Nämä genret tulisi päivittyä automaattise-<br>sti pudotusvalikkoon. |
-| Kirjan inforuutu kirjan ikonia painaessa | Kyllä | |
-| Kirjan poistaminen inforuudun kautta | Kyllä | |
-| Kirjan muokkaaminen inforuudun kautta | Kyllä | |
-| Käyttäjän salasanan vaihto | Kyllä | |
-| Käyttäjän tilin poistaminen | Kyllä | |
+| Kirjojen lisäys listaan | Kyllä | Videolla 4:35<br>Ei voitu lisätä erillistä kuvan tallennusta,<br>käytämme URL.<br>Kirjan genret ei olla tallennettu<br>käyttäjän tietokantaan, vaan<br>itse koodiin.|
+| Kirjojen haku listasta | Kyllä | Videolla 6:20 |
+| Kirjojen lajittelu pudotusvalikosta | Kyllä | Videolla 6:29 |
+| Kirjojen suodatus genren mukaan | Kyllä | Videolla 6:54<br>Jatkokehityksessä voidaan lisätä käyttäjän<br>mahdollisuus lisätä omat genrensä.<br>Nämä genret tulisi päivittyä automaattise-<br>sti pudotusvalikkoon. |
+| Kirjan inforuutu kirjan ikonia painaessa | Kyllä | Videolla 7:18 |
+| Kirjan poistaminen inforuudun kautta | Kyllä | Videolla 7:43 |
+| Kirjan muokkaaminen inforuudun kautta | Kyllä | Videolla 7:53 |
+| Käyttäjän salasanan vaihto | Kyllä | Videolla 8:26 |
+| Käyttäjän tilin poistaminen | Kyllä | Videolla 9:09 |
 
 ---
 
@@ -123,4 +123,11 @@ Yhteensä käytetyt tunnit: **68**
 
 ## 🪢 Esityksen linkki
 
-_Lisää linkki videomuotoiseen esitykseen tai mainitse, jos se esitettiin livenä._
+Videon kesto on 15:15.
+
+(Huom. Ensimmäinen linkki toimii vain ensimmäisen 60 päivän aikana)  
+(Toinen linkki pitäisi toimia vain opettajalle)
+
+📌[Linkki videoesitykseen](https://centriafi-my.sharepoint.com/:v:/g/personal/ville_rauta_centria_fi/EdzkJGNVNfZKrifhwbe7b9cBydkYRcnlMwFjwnIxsjw90Q)
+
+📌[Toinen linkki jos eka ei toimi](https://centriafi-my.sharepoint.com/:v:/g/personal/ville_rauta_centria_fi/EVYdag8TxIJIrN0o038jX18BG3OPpwb1nxO8q1Q5ngozaQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&email=ville.heikkiniemi%40centria.fi&e=NJCNHR)
