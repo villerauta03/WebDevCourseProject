@@ -2,13 +2,18 @@
 
 ## 🎯 Projektin nimi
 
-_Anna projektille kuvaava ja informatiivinen nimi._
+Käyttäjäkohtainen kirjahylly
 
 ---
 
 ## 📝 Projektin yleiskuvaus
 
-_Kuvaile lyhyesti projektin tarkoitus, kohdeyleisö ja konteksti._
+Projektin tarkoituksen oli luoda kirjahylly-sovellus, johon käyttäjät pystyisivät lisätä omia kirjamerkintöjään sivustolla olevaan listaan, joka sitten esitettäisiin käyttäjälle. Käyttäjällä olisi mahdollisuus hakea listasta nimen avulla kirjoja, joita hän on itse lisännyt, ryhmitellä näitä kirjoja sille valitun genren (tai genrejen) mukaan, sekä lajitella kirjahyllynsä haluamallaan tavalla pudotusvalikosta. 
+Käyttäjällä olisi mahdollisuus lisätä kirja täyttämällä kirjan tiedot lomakkeeseen, sekä lisätä kirjalle kuvake/kuva, jota hän voi esikatsella luontilomakkeesta, sekä nähdä kirjojen lopullisessa listassa.
+Kirjoja voisi tulla katselemaan tarkemmin, ja nähdä kaikki kirjalle lisätyt tiedot inforuudusta, joka avautuisi kun kirjan ikonia painaa kirjojen listassa sivustolla. Täältä kirjan inforuudulta voitaisiin sitten painamalla nappia poistaa kirja käyttäjän tietokannasta, tai painamalla muokkaa painiketta siirtyä kirjan muokkaamislomakkeeseen, jossa käyttäjä voisi korvata halutessaan kirjalle täytettyjä tietoja.
+Näiden toiminnallisuuksien lisäksi käyttäjä voisi pystyä muuttamaan omaa salasanaansa asetukset-sivulta, jossa hän voi varmistamalla vanhan salasanansa ja uuden salasanansa jälkeen vaihtaa hänelle tallennettua salasanaa. Tämän lisäksi käyttäjä pystyisi poistamaan oman tilinsä halutessaan, mutta hänen täytyy aluksi täyttää oma salasanansa ennen kuin tili voidaan poistaa.
+Kaiken toiminnallisuuden takan on myös sisäänkirjautumis- sekä rekisteröintitoiminnallisuudet, jotka mahdollistavat sovelluksen käytön. Käyttäjä voi myös kirjautua ulos painamalla "Kirjaudu ulos" nappia muutamalla sivulla. 
+Käyttäjä myös siirretään takaisin sisäänkirjautumiseen, jos hän yrittää päästä millekkään sivuston sivulle ilman kirjautumatta sisään. Sama tapahtuu, että käyttäjä viedään takaisin kotisivulle, jos hän yrittää mennä takaisin sisäänkirjautumis-sivulle sen jälkeen, kun on jo kirjautunut sisään.
 
 ---
 
