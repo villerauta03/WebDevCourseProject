@@ -93,6 +93,8 @@ Jatkokehitysaiheena sanoisin olevan projektin käyttöönoton pilvipalvelussa, j
 
 ## 📊 Työtuntien kirjanpito
 
+📌[Linkki alkuperäiseen työtuntien tiedostoon](https://github.com/villerauta03/WebDevCourseProject/blob/main/Logbook.md#project-logbook)
+
 | Pvm | Käytetyt tunnit | Aihe(et) | Tulokset |
 |---|---|---|---|
 | 16.03.2025 | 1 | Työympäristön alkuasetukset | Valmistelin GitHub repon tulevaa työkuormaa varten ja katsoin opettajan ohjeistusta ensimmäiselle vaiheelle Panoptosta | 
@@ -111,9 +113,10 @@ Jatkokehitysaiheena sanoisin olevan projektin käyttöönoton pilvipalvelussa, j
 | 11.04.2025 | 8 | Asetusten FrontEnd, Kirjaluonnin FrontEnd kehitystä, salasanan vaihto, käyttäjätilin poisto, muu frontend | Teimme asetussivun ja kotisivun frontendiin muutoksia, nyt valmiina tuloksena. Asetukset sivulle myös lisättiin toiminnallisuus poistaa käyttäjä tai vaihtaa käyttäjän salasanaa. Uloskirjautuminen mahdollistettu applikaatiossa. Aloitettu kirjanluontia, ongelmia frontendissä ja backendin suunnittelussa. |
 | 12.04.2025 | 12 | Kaikkien toiminnallisuuksien suoritus | Työstimme koko päivän loppuja toiminnallisuuksia valmiiksi asti. Eri juuri kirjojen luonnin front- ja backend, kirjojen lukeminen kotiruudussa olevaan harmaaseen boksiin, kotiruudun hakutoiminnallisuus, ja listaustoiminnallisuus, ja genrejen perusteinen filter, kirjaa painamalla avautuva inforuutu josta lukea tarkemmat tiedot, inforuudusta voi poistaa varmistuksella kirjan, kirjaa vi muokata inforuudun kautta, ja muutokset tallentuvat kun painaa ok, jokaiselle sivulle määritely navigaatioesto. | 
 | 13.04.2025 | 8 | Kommenttien lisäys ja hitsaus, dokumentaation päivitys, loppumuokkaukset ja pienkorjaukset, ohjeistuksen tekeminen README.md kansioon | Tehtiin viime hetken korjauksia CSS ja tyyleihin, kirjoitettiin 2. vaiheen dokumentaatio alusta loppuun kattavasti ja luotiin applikaation käyttöönotto ohjeistukset README.md tiedostoon. Lisäsimme koodiimme myös kommentteja tarpeen mukaan, ja paransimme jo olemassaolevia kommentteja. |
+| 25.04.2025 | 2 | Dokumentaation viimeistely 4. vaiheeseen, sekä projektin esittelyvideon tekeminen ja linkittäminen. | 
 
 
-Yhteensä käytetyt tunnit: **X**
+Yhteensä käytetyt tunnit: **68**
 
 ---
 
