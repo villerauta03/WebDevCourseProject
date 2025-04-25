@@ -63,6 +63,7 @@ Tietokantanamme käytimme PostgreSQL, jossa kaksi pöytää: users ja books.
 Projekti on isännöity pelkästään paikallisella koneella.
 
 📌[Projektin kansiorakenne](https://github.com/villerauta03/WebDevCourseProject/blob/main/Documentation/2_Perusrunko-ja-P%C3%A4%C3%A4toiminnallisuudet.md#projektin-kansiorakenne)
+
 📌[Projektin tarkemmat tekniset tiedot](https://github.com/villerauta03/WebDevCourseProject/blob/main/Documentation/2_Perusrunko-ja-P%C3%A4%C3%A4toiminnallisuudet.md#1-perusrunko-ja-arkkitehtuuri)
 
 ---
