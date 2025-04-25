@@ -32,13 +32,16 @@ Käyttäjä myös siirretään takaisin sisäänkirjautumiseen, jos hän yrittä
 | Käyttäjän uloskirjautuminen | Kyllä | |
 | Käyttäjän automaattinen uudelleenohjaus | Kyllä | Ei määritelty alkusuunnitelmassa. |
 | Kirjojen listan näkyvyys | Kyllä | |
-| Kirjojen lisäys listaan | Kyllä | Ei voitu lisätä erillistä kuvan tallennusta,<br>käytämme URL. |
+| Kirjojen merkitseminen luetuksi | Ei | Toiminnallisuus unohtui kunnes oli liian myöhä. |
+| Kirjojen lisäys listaan | Kyllä | Ei voitu lisätä erillistä kuvan tallennusta,<br>käytämme URL.<br>Kirjan genret ei olla tallennettu<br>käyttäjän tietokantaan, vaan<br>itse koodiin.|
 | Kirjojen haku listasta | Kyllä | |
 | Kirjojen lajittelu pudotusvalikosta | Kyllä | |
-| Kirjojen ryhmitys genren mukaan | Kyllä | Jatkokehityksessä voidaan lisätä käyttäjän<br>mahdollisuus lisätä omat genrensä.<br>Nämä genret tulisi päivittyä automaattise-<br>sti pudotusvalikkoon. |
-|
-
-_Lisää selitykset jokaiselle käyttötapaukselle, mukaan lukien demon aikaleimat, jos käytät videota._
+| Kirjojen suodatus genren mukaan | Kyllä | Jatkokehityksessä voidaan lisätä käyttäjän<br>mahdollisuus lisätä omat genrensä.<br>Nämä genret tulisi päivittyä automaattise-<br>sti pudotusvalikkoon. |
+| Kirjan inforuutu kirjan ikonia painaessa | Kyllä | |
+| Kirjan poistaminen inforuudun kautta | Kyllä | |
+| Kirjan muokkaaminen inforuudun kautta | Kyllä | |
+| Käyttäjän salasanan vaihto | Kyllä | |
+| Käyttäjän tilin poistaminen | Kyllä | |
 
 ---
 
